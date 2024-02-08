@@ -13,7 +13,7 @@ $ rails db:create && rails db:migrate
 $ rails s
 ```
 
-## カタログ設計/テーブル設計
+## カタログ設計/テーブル定義書
 https://docs.google.com/spreadsheets/d/1tj1cnkptfCr-NhzUirs79FTXoAq2IhsYZiRlapMM7tk/edit?usp=sharing
 
 ## ワイヤーフレーム
