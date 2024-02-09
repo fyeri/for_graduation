@@ -37,22 +37,28 @@ ActiveRecord::Schema.define(version: 2024_02_09_023019) do
 
   create_table "labels", force: :cascade do |t|
     t.string "name", null: false
+    t.bigint "item_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["item_id"], name: "index_labels_on_item_id"
   end
 
   create_table "owned_items", force: :cascade do |t|
     t.integer "quantity", null: false
     t.text "remark"
+    t.bigint "item_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["item_id"], name: "index_owned_items_on_item_id"
   end
 
   create_table "wanted_items", force: :cascade do |t|
     t.integer "quantity", null: false
     t.text "remark"
+    t.bigint "item_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["item_id"], name: "index_wanted_items_on_item_id"
   end
 
   add_foreign_key "item_labels", "items"

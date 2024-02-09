@@ -11,6 +11,8 @@
     </div>
   <% end %>
 
+
+
   <div class="field">
     <%= form.label :name %>
     <%= form.text_field :name %>
@@ -28,7 +30,7 @@
 
   <div class="field">
     <%= form.label :purchased_on %>
-    <%= form.date_select :purchased_on %>
+    <%= form.datetime_field :purchased_on %>
   </div>
 
   <div class="field">
@@ -36,7 +38,29 @@
     <%= form.text_field :image %>
   </div>
 
+  <div class="field">
+    <%= form.label :item_type, "Item type" %><br>
+
+    <%= label_tag('item_type_owned', 'Owned itm') %>
+    <%= radio_button_tag('item_type', 'owned') %> 
+   
+    <%= label_tag('item_type_wanted', 'Wanted item')%>
+    <%= radio_button_tag('item_type', 'wanted') %>
+   
+  </div>
+
+  <div class="field">
+    <%= form.label :quantity %>
+    <%= form.number_field :quantity %>
+  </div>
+
+  <div class="field">
+    <%= form.label :remark %>
+    <%= form.text_area :remark %>
+
   <div class="actions">
     <%= form.submit %>
   </div>
 <% end %>
+
+

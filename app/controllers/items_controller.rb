@@ -13,6 +13,8 @@ class ItemsController < ApplicationController
   # GET /items/new
   def new
     @item = Item.new
+    @item.build_owned_item
+    @item.build_wanted_item
   end
 
   # GET /items/1/edit
@@ -21,7 +23,16 @@ class ItemsController < ApplicationController
 
   # POST /items or /items.json
   def create
-    @item = Item.new(item_params)
+    @item = Item.new(item_params.except(:quantity, :remark))
+    item_type = params[:item_type]
+    quantity = params[:item][:quantity]
+    remark = params[:item][:remark]
+
+    if item_type == 'owned'
+    @item.build_owned_item(quantity: quantity, remark: remark)
+    elseif item_type == 'wanted'
+    @item.build_wanted_item(quantity: quantity, remark: remark)
+  end
 
     respond_to do |format|
       if @item.save
@@ -65,6 +76,6 @@ class ItemsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def item_params
-      params.require(:item).permit(:name, :character, :category, :purchased_on, :image)
+      params.require(:item).permit(:name, :character, :category, :purchased_on, :image, :quantity, :remark)
     end
 end
