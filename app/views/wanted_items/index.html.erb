@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Wanted Items</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Quantity</th>
+      <th>Remark</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @wanted_items.each do |wanted_item| %>
+      <tr>
+        <td><%= wanted_item.quantity %></td>
+        <td><%= wanted_item.remark %></td>
+        <td><%= link_to 'Show', wanted_item %></td>
+        <td><%= link_to 'Edit', edit_wanted_item_path(wanted_item) %></td>
+        <td><%= link_to 'Destroy', wanted_item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Wanted Item', new_wanted_item_path %>
