@@ -41,7 +41,7 @@
   <div class="field">
     <%= form.label :item_type, "Item type" %><br>
 
-    <%= label_tag('item_type_owned', 'Owned itm') %>
+    <%= label_tag('item_type_owned', 'Owned item') %>
     <%= radio_button_tag('item_type', 'owned') %> 
    
     <%= label_tag('item_type_wanted', 'Wanted item')%>
@@ -57,6 +57,7 @@
   <div class="field">
     <%= form.label :remark %>
     <%= form.text_area :remark %>
+  </div>
 
   <div class="actions">
     <%= form.submit %>
