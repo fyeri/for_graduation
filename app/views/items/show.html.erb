@@ -25,7 +25,35 @@
   <%= @item.image %>
 </p>
 
+<% if @item.owned_item %>
 
+  <p>
+   <strong>ItemType:</strong>
+   Owned Item
+  </p>
+  <p>
+    <strong>Owned Item Quantity:</strong>
+    <%= @item.owned_item.quantity %>
+  </p>
+  <p>
+    <strong>Remark:</strong>
+    <%= @item.owned_item.remark%>
+  </p>
+
+<% elsif @item.wanted_item %>
+  <p>
+    <strong>ItemType:</strong>
+    Wanted Item
+  </p>
+  <p>
+    <strong>Wanted Item Quantity:</strong>
+    <%= @item.wanted_item.quantity%>
+  </p>
+  <p>
+    <strong>Remark:</strong>
+    <%= @item.wanted_item.remark%>
+  </p>
+<% end %>
 
 <%= link_to 'Edit', edit_item_path(@item) %> |
 <%= link_to 'Back', items_path %>
