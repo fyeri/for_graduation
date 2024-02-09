@@ -8,6 +8,7 @@ class ItemsController < ApplicationController
 
   # GET /items/1 or /items/1.json
   def show
+    
   end
 
   # GET /items/new
@@ -30,7 +31,7 @@ class ItemsController < ApplicationController
 
     if item_type == 'owned'
     @item.build_owned_item(quantity: quantity, remark: remark)
-    elseif item_type == 'wanted'
+    elsif item_type == 'wanted'
     @item.build_wanted_item(quantity: quantity, remark: remark)
   end
 
@@ -48,7 +49,17 @@ class ItemsController < ApplicationController
   # PATCH/PUT /items/1 or /items/1.json
   def update
     respond_to do |format|
-      if @item.update(item_params)
+      if @item.update(item_params.except(:quantity, :remark))
+        item_type = params[:item_type]
+        quantity = params[:item][:quantity]
+        remark = params[:item][:remark]
+    
+        if item_type == 'owned'
+        @item.build_owned_item(quantity: quantity, remark: remark)
+        elsif item_type == 'wanted'
+        @item.build_wanted_item(quantity: quantity, remark: remark)
+      end
+
         format.html { redirect_to item_url(@item), notice: "Item was successfully updated." }
         format.json { render :show, status: :ok, location: @item }
       else
