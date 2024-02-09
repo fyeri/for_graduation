@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Owned Items</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Quantity</th>
+      <th>Remark</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @owned_items.each do |owned_item| %>
+      <tr>
+        <td><%= owned_item.quantity %></td>
+        <td><%= owned_item.remark %></td>
+        <td><%= link_to 'Show', owned_item %></td>
+        <td><%= link_to 'Edit', edit_owned_item_path(owned_item) %></td>
+        <td><%= link_to 'Destroy', owned_item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Owned Item', new_owned_item_path %>
