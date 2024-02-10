@@ -6,4 +6,28 @@ class Item < ApplicationRecord
 
   accepts_nested_attributes_for :owned_item, allow_destroy: true
   accepts_nested_attributes_for :wanted_item, allow_destroy: true
+
+  validates :name, presence:true, length: { maximum: 255 }
+  validates :character, presence:true, length: { maximum: 255 }
+  validates :category, presence:true
+  validates :purchased_on, presence:true
+
+  validate :item_type_selection
+  validate :quantity_presence
+
+  private
+
+  def item_type_selection
+    unless owned_item || wanted_item
+      errors.add(:base, "Item type must be selected.")
+    end
+  end
+
+  def quantity_presence
+    if owned_item && owned_item.quantity.blank?
+      errors.add(:base, "Quantity must be provided for owned item.")
+    elsif wanted_item && wanted_item.quantity.blank?
+      errors.add(:base, "Quantity must be provided for wanted item.") 
+    end
+  end
 end

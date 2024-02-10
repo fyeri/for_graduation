@@ -8,9 +8,21 @@
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+<script src="https://kit.fontawesome.com/851afd15a5.js" crossorigin="anonymous"></script>
   </head>
 
   <body>
+
+  <ul>
+    <li id="owned-items-index", class="fa-solid fa-box">
+    <%= link_to "持っているグッズ",owned_items_path %></li>
+    <li id="wanted-items-index", class="fa-solid fa-star">
+    <%= link_to "欲しいグッズ", wanted_items_path %></li>
+    <li id="new-item", class="fa-solid fa-circle-plus">
+    <%=link_to "新規グッズ登録", new_item_path %>
+    <li id="label-index", class="fa-solid fa-tags">
+    <%= link_to "ラベル", labels_path %></li>
+  </ul>
     <%= yield %>
   </body>
 </html>
