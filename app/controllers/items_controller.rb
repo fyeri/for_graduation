@@ -25,7 +25,7 @@ class ItemsController < ApplicationController
   # POST /items or /items.json
   def create
     @item = Item.new(item_params.except(:quantity, :remark))
-    item_type = params[:item_type]
+    item_type = params[:item][:item_type]
     quantity = params[:item][:quantity]
     remark = params[:item][:remark]
 
@@ -48,21 +48,24 @@ class ItemsController < ApplicationController
 
   # PATCH/PUT /items/1 or /items/1.json
   def update
-    respond_to do |format|
-      if @item.update(item_params.except(:quantity, :remark))
-        item_type = params[:item_type]
-        quantity = params[:item][:quantity]
-        remark = params[:item][:remark]
+    item_type = params[:item_type]
+    quantity = params[:item][:quantity]
+    remark = params[:item][:remark]
     
-        if item_type == 'owned'
-        @item.build_owned_item(quantity: quantity, remark: remark)
-        elsif item_type == 'wanted'
-        @item.build_wanted_item(quantity: quantity, remark: remark)
+    if @item.update(item_params.except(:item_type, :quantity, :remark))
+      update_or_build_item(item_type, quantity, remark)
+  
+        respond_to do |format|
+        if @item.save
+          format.html { redirect_to @item, notice: 'Item was successfully updated.' }
+          format.json { render :show, status: :ok, location: @item }
+        else
+          format.html { render :edit, status: :unprocessable_entity }
+          format.json { render json: @item.errors, status: :unprocessable_entity }
+        end
       end
-
-        format.html { redirect_to item_url(@item), notice: "Item was successfully updated." }
-        format.json { render :show, status: :ok, location: @item }
-      else
+    else
+      respond_to do |format|
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @item.errors, status: :unprocessable_entity }
       end
@@ -85,8 +88,18 @@ class ItemsController < ApplicationController
       @item = Item.find(params[:id])
     end
 
+
+
     # Only allow a list of trusted parameters through.
     def item_params
-      params.require(:item).permit(:name, :character, :category, :purchased_on, :image, :quantity, :remark)
+      params.require(:item).permit(:name, :character, :category, :purchased_on, :image, :item_type, :quantity, :remark)
+    end
+
+    def update_or_build_item(item_type, quantity, remark)
+      if item_type == 'owned'
+        @item.owned_item ? @item.owned_item.update(quantity: quantity, remark: remark) : @item.build_owned_item(quantity: quantity, remark: remark)
+      elsif item_type == 'wanted'
+        @item.wanted_item ? @item.wanted_item.update(quantity: quantity, remark: remark) : @item.build_wanted_item(quantity: quantity, remark: remark)
+      end
     end
 end
