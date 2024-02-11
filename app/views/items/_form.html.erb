@@ -37,16 +37,17 @@
     <%= form.text_field :image %>
   </div>
 
-  <div class="field">
-    <%= form.label :item_type, "Item type" %><br>
+  <div form id="field">
+    <%= form.label :item_type, 'Item type' %><br>
 
-    <%= label_tag('item_type_owned', 'Owned item') %>
-    <%= radio_button_tag('item_type', 'owned') %> 
+    <%= form.label :item_type_owned, 'Owned item' %>
+    <%= form.radio_button :item_type, 'owned', onchange: "updateFormAction();"%>
    
-    <%= label_tag('item_type_wanted', 'Wanted item')%>
-    <%= radio_button_tag('item_type', 'wanted') %>
-   
+    <%= form.label :item_type_wanted, 'Wanted item' %>
+    <%= form.radio_button :item_type, 'wanted', onchange: "updateFormAction();" %>
+    
   </div>
+
 
   <div class="field">
     <%= form.label :quantity %>
@@ -64,4 +65,15 @@
   </div>
 <% end %>
 
+<script>
+  function updateFormAction() {
+    var form = document.getElementById('itemForm');
+    var itemType = document.querySelector('input[name="item_type"]:checked').value;
+    if (itemType == 'owned') {
+      form.action = '/owned_items';
+    } else if (itemType == 'wanted') {
+      form.action = '/wanted_items';
+    }
+  }
+</script>
 
