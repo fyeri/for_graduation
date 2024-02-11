@@ -25,6 +25,8 @@ class ItemsController < ApplicationController
   # POST /items or /items.json
   def create
     @item = Item.new(item_params)
+    @item.image = params[:item][:image]
+    
     item_type = params[:item][:item_type]
     quantity = params[:item][:quantity]
     remark = params[:item][:remark]
