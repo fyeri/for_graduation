@@ -17,7 +17,7 @@
   <tbody>
     <% @items.each do |item| %>
       <tr>
-        <td><%= item.image %></td>
+        <td> <%= image_tag item.image.url if item.image.present? %></td>
         <td><%= item.name %></td>
         <td><%= item.character %></td>
         <td><%= item.category %></td>
