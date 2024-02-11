@@ -4,6 +4,7 @@ class OwnedItemsController < ApplicationController
   # GET /owned_items or /owned_items.json
   def index
     @owned_items = OwnedItem.all
+    @items = Item.includes(:owned_item).where.not(owned_items: { id: nil })
   end
 
   # GET /owned_items/1 or /owned_items/1.json
@@ -21,6 +22,7 @@ class OwnedItemsController < ApplicationController
 
   # POST /owned_items or /owned_items.json
   def create
+    @item = Item.find(params[:item_id])
     @owned_item = OwnedItem.new(owned_item_params)
 
     respond_to do |format|

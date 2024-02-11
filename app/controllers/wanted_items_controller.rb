@@ -4,6 +4,7 @@ class WantedItemsController < ApplicationController
   # GET /wanted_items or /wanted_items.json
   def index
     @wanted_items = WantedItem.all
+    @items = Item.includes(:wanted_item).where.not(wanted_items: { id: nil })
   end
 
   # GET /wanted_items/1 or /wanted_items/1.json
@@ -21,11 +22,12 @@ class WantedItemsController < ApplicationController
 
   # POST /wanted_items or /wanted_items.json
   def create
-    @wanted_item = WantedItem.new(wanted_item_params)
+    @item = Item.find(params[:item_id])
+    @wanted_item = @item.wanted_items.build(wanted_item_params)
 
     respond_to do |format|
       if @wanted_item.save
-        format.html { redirect_to wanted_item_url(@wanted_item), notice: "Wanted item was successfully created." }
+        format.html { redirect_to @item, notice: "Wanted item was successfully created." }
         format.json { render :show, status: :created, location: @wanted_item }
       else
         format.html { render :new, status: :unprocessable_entity }
