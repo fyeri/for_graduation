@@ -12,22 +12,22 @@ class Item < ApplicationRecord
   validates :category, presence:true
   validates :purchased_on, presence:true
 
-  validate :item_type_selection
-  validate :quantity_presence
+  # validate :item_type_selection
+  # # validate :quantity_presence
 
-  private
+  # private
 
-  def item_type_selection
-    unless owned_item || wanted_item
-      errors.add(:base, "Item type must be selected.")
-    end
-  end
+  # def item_type_selection
+  #   unless owned_item || wanted_item
+  #     errors.add(:base, "Item type must be selected.")
+  #   end
+  # end
 
-  def quantity_presence
-    if owned_item && owned_item.quantity.blank?
-      errors.add(:base, "Quantity must be provided for owned item.")
-    elsif wanted_item && wanted_item.quantity.blank?
-      errors.add(:base, "Quantity must be provided for wanted item.") 
-    end
-  end
+  # def quantity_presence
+  #   if owned_item && owned_item.quantity.blank?
+  #     errors.add(:base, "Quantity must be provided for owned item.")
+  #   elsif wanted_item && wanted_item.quantity.blank?
+  #     errors.add(:base, "Quantity must be provided for wanted item.") 
+  #   end
+  # end
 end

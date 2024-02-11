@@ -24,7 +24,7 @@ class ItemsController < ApplicationController
 
   # POST /items or /items.json
   def create
-    @item = Item.new(item_params.except(:quantity, :remark))
+    @item = Item.new(item_params)
     item_type = params[:item][:item_type]
     quantity = params[:item][:quantity]
     remark = params[:item][:remark]
@@ -92,7 +92,7 @@ class ItemsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def item_params
-      params.require(:item).permit(:name, :character, :category, :purchased_on, :image, :item_type, :quantity, :remark)
+      params.require(:item).permit(:name, :character, :category, :purchased_on, :image)
     end
 
     def update_or_build_item(item_type, quantity, remark)
