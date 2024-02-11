@@ -4,6 +4,8 @@ class Item < ApplicationRecord
   has_one :owned_item
   has_one :wanted_item
 
+  mount_uploader :image, ImageUploader
+
   accepts_nested_attributes_for :owned_item, allow_destroy: true
   accepts_nested_attributes_for :wanted_item, allow_destroy: true
 
@@ -11,6 +13,8 @@ class Item < ApplicationRecord
   validates :character, presence:true, length: { maximum: 255 }
   validates :category, presence:true
   validates :purchased_on, presence:true
+
+  enum category: { 缶バッチ: 0, キーホルダー: 1, アクリルスタンド: 2, ポストカード: 3, その他: 4 }
 
   # validate :item_type_selection
   # # validate :quantity_presence

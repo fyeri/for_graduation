@@ -24,7 +24,7 @@
 
   <div class="field">
     <%= form.label :category %>
-    <%= form.number_field :category %>
+    <%= form.select :category, Item.categories.keys.to_a, {include_blank: true} %>
   </div>
 
   <div class="field">
@@ -34,7 +34,7 @@
 
   <div class="field">
     <%= form.label :image %>
-    <%= form.text_field :image %>
+    <%= form.file_field  :image, id: :item_image  %>
   </div>
 
   <div form id="field">
