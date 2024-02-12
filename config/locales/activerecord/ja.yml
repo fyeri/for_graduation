@@ -1,0 +1,21 @@
+ja:
+  activerecord:
+    models:
+      user: 'ユーザー'
+      board: '掲示板'
+    attributes:
+      item:
+        image: '画像'
+        name: '商品名'
+        character: 'キャラクター名'
+        category: 'カテゴリー'
+        purchased_on: '購入日'
+        item_type: '持っているグッズ/欲しいグッズ'
+        owned_item: '持っているグッズ'
+        wanted_item: '欲しいグッズ'
+        quantity: '数量'
+        remark: '備考'
+  
+
+
+

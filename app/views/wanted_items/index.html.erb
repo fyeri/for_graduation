@@ -5,10 +5,10 @@
 <table>
   <thead>
     <tr>
-      <th>Image</th>
-      <th>Name</th>
-      <th>Character</th>
-      <th>Category</th>
+      <th><%= Item.human_attribute_name(:image) %></th>
+      <th><%= Item.human_attribute_name(:name) %></th>
+      <th><%= Item.human_attribute_name(:character) %></th>
+      <th><%= Item.human_attribute_name(:category) %></th>
 
       <th colspan="3"></th>
     </tr>
@@ -17,10 +17,17 @@
   <tbody>
     <% @items.each do |item| %>
       <tr>
-        <td><%= image_tag item.image.url if item.image.present? %></td>
+        <td>
+          <% if item.image.present? %>
+            <%= image_tag item.image.url %>
+           <% else %>
+            <%= image_tag "default.png", size: "200x200" %>
+          <% end %>
+        </td>
         <td><%= item.name %></td>
         <td><%= item.character %></td>
         <td><%= item.category %></td>
+         <td><%= link_to 'Show', item %></td>
       </tr>
     <% end %>
   </tbody>

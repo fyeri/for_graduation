@@ -1,4 +1,4 @@
-<%= form_with(model: item) do |form| %>
+<%= form_with(model: item, id: 'itemForm') do |form| %>
   <% if item.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(item.errors.count, "error") %> prohibited this item from being saved:</h2>
@@ -11,6 +11,10 @@
     </div>
   <% end %>
 
+  <div class="field">
+    <%= form.label :image %>
+    <%= form.file_field  :image, id: :item_image  %>
+  </div>
 
   <div class="field">
     <%= form.label :name %>
@@ -29,21 +33,16 @@
 
   <div class="field">
     <%= form.label :purchased_on %>
-    <%= form.datetime_field :purchased_on %>
-  </div>
-
-  <div class="field">
-    <%= form.label :image %>
-    <%= form.file_field  :image, id: :item_image  %>
+    <%= form.date_field :purchased_on %>
   </div>
 
   <div form id="field">
-    <%= form.label :item_type, 'Item type' %><br>
+    <%= form.label :item_type,  t('activerecord.attributes.item.item_type')  %><br>
 
-    <%= form.label :item_type_owned, 'Owned item' %>
+    <%= form.label :item_type_owned,  t('activerecord.attributes.item.owned_item') %>
     <%= form.radio_button :item_type, 'owned', onchange: "updateFormAction();"%>
    
-    <%= form.label :item_type_wanted, 'Wanted item' %>
+    <%= form.label :item_type_wanted,  t('activerecord.attributes.item.wanted_item')  %>
     <%= form.radio_button :item_type, 'wanted', onchange: "updateFormAction();" %>
     
   </div>
@@ -70,9 +69,12 @@
     var form = document.getElementById('itemForm');
     var itemType = document.querySelector('input[name="item_type"]:checked').value;
     if (itemType == 'owned') {
-      form.action = '/owned_items';
+
+      document.getElementById('quantity_field').style.display = 'block';
+      document.getElementById('remark_field').style.display = 'block';
     } else if (itemType == 'wanted') {
-      form.action = '/wanted_items';
+      document.getElementById('quantity_field').style.display = 'none';
+      document.getElementById('remark_field').style.display = 'none';
     }
   }
 </script>
