@@ -9,10 +9,10 @@ class Item < ApplicationRecord
   accepts_nested_attributes_for :owned_item, allow_destroy: true
   accepts_nested_attributes_for :wanted_item, allow_destroy: true
 
-  validates :name, presence:true, length: { maximum: 255 }
-  validates :character, presence:true, length: { maximum: 255 }
-  validates :category, presence:true
-  validates :purchased_on, presence:true
+  validates :name, presence: {message: :blank},  length: { maximum: 255 }
+  validates :character, presence: {message: :blank}, length: { maximum: 255 }
+  validates :category, presence: {message: :blank}
+  validates :purchased_on, presence: {message: :blank}
 
   enum category: { 缶バッチ: 0, キーホルダー: 1, アクリルスタンド: 2, ポストカード: 3, その他: 4 }
 

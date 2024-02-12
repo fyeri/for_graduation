@@ -1,62 +1,62 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Name:</strong>
-  <%= @item.name %>
-</p>
-
-<p>
-  <strong>Character:</strong>
-  <%= @item.character %>
-</p>
-
-<p>
-  <strong>Category:</strong>
-  <%= @item.category %>
-</p>
-
-<p>
-  <strong>Purchased on:</strong>
-  <%= @item.purchased_on %>
-</p>
-
-<p>
-  <strong>Image:</strong>
-  <%= @item.image %>
+  <strong><%= Item.human_attribute_name(:image) %>:</strong>
 </p>
 <p>
   <%= image_tag @item.image.url if @item.image.present? %>
 </p>
 
+<p>
+  <strong><%= Item.human_attribute_name(:name) %>:</strong>
+  <%= @item.name %>
+</p>
+
+<p>
+  <strong><%= Item.human_attribute_name(:character) %>:</strong>
+  <%= @item.character %>
+</p>
+
+<p>
+  <strong><%= Item.human_attribute_name(:category) %>:</strong>
+  <%= @item.category %>
+</p>
+
+<p>
+  <strong><%= Item.human_attribute_name(:purchased_on) %>:</strong>
+  <%= @item.purchased_on %>
+</p>
+
+
 <% if @item.owned_item %>
 
   <p>
-   <strong>ItemType:</strong>
-   Owned Item
+    <strong><%= t('activerecord.attributes.item.item_type') %>:</strong>
+    <%= Item.human_attribute_name(:owned_item) %>
   </p>
   <p>
-    <strong>Owned Item Quantity:</strong>
+    <strong><%= Item.human_attribute_name(:quantity) %>:</strong>
     <%= @item.owned_item.quantity %>
   </p>
   <p>
-    <strong>Remark:</strong>
+    <strong><%= Item.human_attribute_name(:remark) %>:</strong>
     <%= @item.owned_item.remark%>
   </p>
 
 <% elsif @item.wanted_item %>
   <p>
-    <strong>ItemType:</strong>
-    Wanted Item
+   <strong><%= t('activerecord.attributes.item.item_type') %>:</strong>
+   <%= Item.human_attribute_name(:wanted_item) %>
   </p>
   <p>
-    <strong>Wanted Item Quantity:</strong>
+    <strong><%= Item.human_attribute_name(:quantity) %>:</strong>
     <%= @item.wanted_item.quantity%>
   </p>
   <p>
-    <strong>Remark:</strong>
+    <strong><%= Item.human_attribute_name(:remark) %>:</strong>
     <%= @item.wanted_item.remark%>
   </p>
 <% end %>
 
-<%= link_to 'Edit', edit_item_path(@item) %> |
-<%= link_to 'Back', items_path %>
+<%= link_to 'Edit', edit_item_path(@item) %> 
+
