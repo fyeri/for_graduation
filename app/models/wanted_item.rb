@@ -3,4 +3,6 @@ class WantedItem < ApplicationRecord
   mount_uploader :image, ImageUploader
 
   validates :quantity, presence: {message: :blank}
+
+
 end

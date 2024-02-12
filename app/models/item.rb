@@ -16,6 +16,7 @@ class Item < ApplicationRecord
 
   enum category: { 缶バッチ: 0, キーホルダー: 1, アクリルスタンド: 2, ポストカード: 3, その他: 4 }
 
+
   # validate :item_type_selection
   # # validate :quantity_presence
 

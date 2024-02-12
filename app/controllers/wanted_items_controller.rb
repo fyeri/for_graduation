@@ -4,7 +4,7 @@ class WantedItemsController < ApplicationController
   # GET /wanted_items or /wanted_items.json
   def index
     @wanted_items = WantedItem.all
-    @items = Item.includes(:wanted_item).where.not(wanted_items: { id: nil })
+    @items = Item.includes(:wanted_item).where.not(wanted_items: { id: nil }).page(params[:page]).per(10)
   end
 
   # GET /wanted_items/1 or /wanted_items/1.json
