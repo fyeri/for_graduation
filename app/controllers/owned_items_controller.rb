@@ -4,7 +4,8 @@ class OwnedItemsController < ApplicationController
   # GET /owned_items or /owned_items.json
   def index
     @owned_items = OwnedItem.all
-    @items = Item.includes(:owned_item).where.not(owned_items: { id: nil })
+
+    @items = Item.joins(:owned_item).where.not(owned_items: { id: nil }).page(params[:page]).per(10)
   end
 
   # GET /owned_items/1 or /owned_items/1.json
