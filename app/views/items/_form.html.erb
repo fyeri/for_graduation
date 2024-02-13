@@ -37,10 +37,9 @@
   </div>
 
   <div form id="field">
-    <%= form.label :item_type,  t('activerecord.attributes.item.item_type')  %><br>
 
     <%= form.label :item_type_owned,  t('activerecord.attributes.item.owned_item') %>
-    <%= form.radio_button :item_type, 'owned', onchange: "updateFormAction();"%>
+    <%= form.radio_button :item_type, 'owned', checked: true, onchange: "updateFormAction();"%>
    
     <%= form.label :item_type_wanted,  t('activerecord.attributes.item.wanted_item')  %>
     <%= form.radio_button :item_type, 'wanted', onchange: "updateFormAction();" %>
@@ -50,7 +49,7 @@
 
   <div class="field">
     <%= form.label :quantity %>
-    <%= form.number_field :quantity %>
+    <%= form.number_field :quantity, value: 1 %>
   </div>
 
   <div class="field">

@@ -5,7 +5,6 @@ class OwnedItemsController < ApplicationController
   def index
     @owned_items = OwnedItem.all
 
-
     @items = Item.joins(:owned_item).where.not(owned_items: { id: nil }).page(params[:page]).per(10)
   end
 

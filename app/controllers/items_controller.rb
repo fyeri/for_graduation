@@ -25,6 +25,7 @@ class ItemsController < ApplicationController
     # POST /items or /items.json
     def create
       @item = Item.new(item_params)
+      @item.item_type = params[:item][:item_type]
       
       item_type = params[:item][:item_type]
       quantity = params[:item][:quantity]
@@ -49,7 +50,7 @@ class ItemsController < ApplicationController
   
     # PATCH/PUT /items/1 or /items/1.json
     def update
-      item_type = params[:item_type]
+      item_type = params[:item][:item_type]
       quantity = params[:item][:quantity]
       remark = params[:item][:remark]
       
@@ -82,25 +83,40 @@ class ItemsController < ApplicationController
         format.json { head :no_content }
       end
     end
-  
-    private
-      # Use callbacks to share common setup or constraints between actions.
-      def set_item
-        @item = Item.find(params[:id])
+    
+    def by_category
+      @category = params[:category]
+
+      @items = Item.includes(:owned_item, :wanted_item).where(category: @category).map do |item|
+        {
+          item: item,
+          status: item.owned_item.present? ? '持っているグッズ' : '欲しいグッズ'
+        }
       end
+    end
+
+  private
+      # Use callbacks to share common setup or constraints between actions.
+    def set_item
+      @item = Item.find(params[:id])
+    end
   
   
   
       # Only allow a list of trusted parameters through.
-      def item_params
-        params.require(:item).permit(:name, :character, :category, :purchased_on, :image)
-      end
+    def item_params
+      params.require(:item).permit(:name, :character, :category, :purchased_on, :image, :item_type,
+      owned_items_attributes: [:quantity, :remark, :_destroy],
+      wanted_items_attributes: [:quantity, :remark, :_destroy])
+    end
   
-      def update_or_build_item(item_type, quantity, remark)
-        if item_type == 'owned'
-          @item.owned_item ? @item.owned_item.update(quantity: quantity, remark: remark) : @item.build_owned_item(quantity: quantity, remark: remark)
-        elsif item_type == 'wanted'
-          @item.wanted_item ? @item.wanted_item.update(quantity: quantity, remark: remark) : @item.build_wanted_item(quantity: quantity, remark: remark)
-        end
-      end
+    def update_or_build_item(item_type, quantity, remark)
+      if item_type == 'owned'
+        @item.owned_item ? @item.owned_item.update(quantity: quantity, remark: remark)
+         : @item.build_owned_item(quantity: quantity, remark: remark)
+      elsif item_type == 'wanted'
+        @item.wanted_item ? @item.wanted_item.update(quantity: quantity, remark: remark)
+         : @item.build_wanted_item(quantity: quantity, remark: remark)
+    end
   end
+end

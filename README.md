@@ -20,7 +20,7 @@ https://docs.google.com/spreadsheets/d/1tj1cnkptfCr-NhzUirs79FTXoAq2IhsYZiRlapMM
 https://cacoo.com/diagrams/TY12OQcXkxF5l2RP/F7DBB
 
 ## ER図
-![ER図](https://github.com/fyeri/for_graduation/assets/149849878/b69df612-af9e-4c0e-9ddc-6cd96baff884)
+![ER図](https://github.com/fyeri/for_graduation/files/14257604/ER.1.pdf)
 
 ## 画面遷移図
 ![画面遷移図](https://github.com/fyeri/for_graduation/assets/149849878/75aabcef-2bd2-4eea-a309-16f9e7465e32)

@@ -27,10 +27,14 @@
         <td><%= item.name %></td>
         <td><%= item.character %></td>
         <td><%= item.category %></td>
-         <td><%= link_to 'Show', item %></td>
+        <td><%= link_to 'Show', item %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
 <%= paginate @items %>
+
+<% Item.categories.each do |key, value| %>
+  <%= link_to key, items_by_category_path(category: key) %><br>
+<% end %>

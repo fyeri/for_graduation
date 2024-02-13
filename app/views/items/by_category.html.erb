@@ -1,0 +1,29 @@
+<h1><%= @category %>一覧</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>画像</th>
+      <th>商品名</th>
+      <th>キャラクター名</th>
+      <th>状態</th> <!-- 所持状況の列を追加 -->
+    </tr>
+  </thead>
+  <tbody>
+    <% @items.each do |hash| %>
+      <tr>
+        <td>
+          <% if hash[:item].image.present? %>
+            <%= image_tag(hash[:item].image.url, size: "200x200") %>
+          <% else %>
+            <%= image_tag("default.png", size: "200x200") %>
+          <% end %>
+        </td>
+        <td><%= hash[:item].name %></td>
+        <td><%= hash[:item].character %></td>
+        <td><%= hash[:status] %></td>
+        <td><%= link_to "Show",item_path(hash[:item]) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
