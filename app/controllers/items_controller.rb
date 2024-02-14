@@ -79,7 +79,7 @@ class ItemsController < ApplicationController
       @item.destroy
   
       respond_to do |format|
-        format.html { redirect_to items_url, notice: "Item was successfully destroyed." }
+        format.html { redirect_to owned_items_path, notice: "Item was successfully destroyed." }
         format.json { head :no_content }
       end
     end
@@ -105,7 +105,7 @@ class ItemsController < ApplicationController
   
       # Only allow a list of trusted parameters through.
     def item_params
-      params.require(:item).permit(:name, :character, :category, :purchased_on, :image, :item_type,
+      params.require(:item).permit(:name, :character, :category, :purchased_on, :image, :item_type,{ label_ids: [] },
       owned_items_attributes: [:quantity, :remark, :_destroy],
       wanted_items_attributes: [:quantity, :remark, :_destroy])
     end

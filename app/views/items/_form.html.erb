@@ -36,6 +36,10 @@
     <%= form.date_field :purchased_on %>
   </div>
 
+<div class="field">
+ <%= form.label :label_ids %>
+  <%= form.collection_check_boxes(:label_ids, Label.all, :id, :name) %>
+
   <div form id="field">
 
     <%= form.label :item_type_owned,  t('activerecord.attributes.item.owned_item') %>

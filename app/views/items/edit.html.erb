@@ -3,3 +3,4 @@
 <%= render 'form', item: @item %>
 
 <%= link_to 'Show', @item %>
+<td><%= link_to 'Destroy', @item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
