@@ -9,6 +9,7 @@
       <th><%= Item.human_attribute_name(:name) %></th>
       <th><%= Item.human_attribute_name(:character) %></th>
       <th><%= Item.human_attribute_name(:category) %></th>
+      <th><%= Item.human_attribute_name(:label_ids)%></th>
 
       <th colspan="3"></th>
     </tr>
@@ -27,6 +28,11 @@
         <td><%= item.name %></td>
         <td><%= item.character %></td>
         <td><%= item.category %></td>
+        <td>
+          <% item.labels.each do |label| %>
+           <%= label.name %>
+          <% end %>
+        </td>
         <td><%= link_to 'Show', item %></td>
       </tr>
     <% end %>
@@ -35,6 +41,7 @@
 
 <%= paginate @items %>
 
+<h2>カテゴリー別</h2>
 <% Item.categories.each do |key, value| %>
   <%= link_to key, items_by_category_path(category: key) %><br>
 <% end %>

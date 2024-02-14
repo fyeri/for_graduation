@@ -4,7 +4,11 @@
   <strong><%= Item.human_attribute_name(:image) %>:</strong>
 </p>
 <p>
-  <%= image_tag @item.image.url if @item.image.present? %>
+  <% if @item.image.present? %>
+    <%= image_tag @item.image.url %>
+  <% else %>
+    <%= image_tag "default.png", size: "200x200" %>
+  <% end %>
 </p>
 
 <p>
@@ -27,6 +31,11 @@
   <%= @item.purchased_on %>
 </p>
 
+<p>
+  <strong><%= Item.human_attribute_name(:label_ids)%>:</strong>
+          <% @item.labels.each do |label| %>
+           <%= label.name %>
+          <% end %>
 
 <% if @item.owned_item %>
 

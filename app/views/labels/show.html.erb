@@ -1,9 +1,11 @@
 <p id="notice"><%= notice %></p>
 
+<h1>ラベル詳細</h1>
 <p>
-  <strong>Name:</strong>
+  <strong>
+    <%= t('activerecord.attributes.label.index.name') %>:
+  </strong>
   <%= @label.name %>
 </p>
 
-<%= link_to 'Edit', edit_label_path(@label) %> |
-<%= link_to 'Back', labels_path %>
+<%= link_to 'Edit', edit_label_path(@label) %>
