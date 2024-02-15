@@ -1,9 +1,10 @@
 class LabelsController < ApplicationController
+  before_action :authenticate_user!, except: [:index]
   before_action :set_label, only: %i[ show edit update destroy ]
 
   # GET /labels or /labels.json
   def index
-    @labels = Label.all
+    @labels = current_user.labels
   end
 
   # GET /labels/1 or /labels/1.json
@@ -21,7 +22,7 @@ class LabelsController < ApplicationController
 
   # POST /labels or /labels.json
   def create
-    @label = Label.new(label_params)
+    @label = current_user.labels.build(label_params)
 
     respond_to do |format|
       if @label.save
@@ -60,7 +61,7 @@ class LabelsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_label
-      @label = Label.find(params[:id])
+      @label = current_user.items.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.

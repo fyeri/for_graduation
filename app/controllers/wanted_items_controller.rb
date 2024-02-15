@@ -1,72 +1,26 @@
 class WantedItemsController < ApplicationController
+  before_action :authenticate_user!, except: [:index]
   before_action :set_wanted_item, only: %i[ show edit update destroy ]
 
   # GET /wanted_items or /wanted_items.json
   def index
-    @wanted_items = WantedItem.all
-    @items = Item.includes(:wanted_item).where.not(wanted_items: { id: nil }).page(params[:page]).per(10)
-  end
-
-  # GET /wanted_items/1 or /wanted_items/1.json
-  def show
-  end
-
-  # GET /wanted_items/new
-  def new
-    @wanted_item = WantedItem.new
-  end
-
-  # GET /wanted_items/1/edit
-  def edit
-  end
-
-  # POST /wanted_items or /wanted_items.json
-  def create
-    @item = Item.find(params[:item_id])
-    @wanted_item = @item.wanted_items.build(wanted_item_params)
-
-    respond_to do |format|
-      if @wanted_item.save
-        format.html { redirect_to @item, notice: "Wanted item was successfully created." }
-        format.json { render :show, status: :created, location: @wanted_item }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @wanted_item.errors, status: :unprocessable_entity }
-      end
+    if user_signed_in?
+      @items = Item.joins(:wanted_item).where(wanted_items: {user_id: current_user.id}).page(params[:page]).per(10)
+    else
+      redirect_to new_user_session_path
     end
   end
 
-  # PATCH/PUT /wanted_items/1 or /wanted_items/1.json
-  def update
-    respond_to do |format|
-      if @wanted_item.update(wanted_item_params)
-        format.html { redirect_to wanted_item_url(@wanted_item), notice: "Wanted item was successfully updated." }
-        format.json { render :show, status: :ok, location: @wanted_item }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @wanted_item.errors, status: :unprocessable_entity }
-      end
-    end
-  end
 
-  # DELETE /wanted_items/1 or /wanted_items/1.json
-  def destroy
-    @wanted_item.destroy
-
-    respond_to do |format|
-      format.html { redirect_to wanted_items_url, notice: "Wanted item was successfully destroyed." }
-      format.json { head :no_content }
-    end
-  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_wanted_item
-      @wanted_item = WantedItem.find(params[:id])
+      @wanted_item = current_user.items.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
     def wanted_item_params
-      params.require(:wanted_item).permit(:quantity, :remark)
+      params.require(:wanted_item).permit(:quantity, :remark).merge(user_id: current_user.id)
     end
 end
