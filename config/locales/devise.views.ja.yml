@@ -16,6 +16,7 @@ ja:
         last_sign_in_ip: 最終ログインIPアドレス
         locked_at: ロック時刻
         password: パスワード
+        new_password: パスワード（半角英数字6文字以上で入力してください）
         password_confirmation: パスワード（確認用）
         remember_created_at: ログイン記憶時刻
         remember_me: ログインを記憶する

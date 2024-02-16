@@ -14,7 +14,7 @@
   </div>
 
   <div class="field">
-    <%= f.label :password %>
+    <%= f.label t('activerecord.attributes.user.new_password') %>
     <% if @minimum_password_length %>
     <em><%= t('devise.shared.minimum_password_length', count: @minimum_password_length) %></em>
     <% end %><br />

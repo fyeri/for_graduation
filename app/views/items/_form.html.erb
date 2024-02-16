@@ -36,9 +36,17 @@
     <%= form.date_field :purchased_on %>
   </div>
 
-<div class="field">
- <%= form.label :label_ids %>
-  <%= form.collection_check_boxes(:label_ids, Label.all, :id, :name) %>
+
+  <div class=“field”>
+      <%= form.label :label_ids %>
+
+      <% current_user.labels.each do |label| %>
+      <div class=“form-check”>
+        <%= form.check_box :label_ids, { multiple: true, include_hidden: false }, label[:id] %>
+        <%= label.name %>
+      </div>
+      <% end %>
+    </div>
 
   <div form id="field">
 

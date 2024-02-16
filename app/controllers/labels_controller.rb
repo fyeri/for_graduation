@@ -61,7 +61,8 @@ class LabelsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_label
-      @label = current_user.items.find(params[:id])
+      # @label = current_user.items.find(params[:id])
+      @label =  current_user.labels.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.

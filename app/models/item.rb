@@ -1,5 +1,5 @@
 class Item < ApplicationRecord
-  has_many :item_labels, dependent: :destroy
+  has_many :item_labels
   has_many :labels, through: :item_labels
   has_one :owned_item, dependent: :destroy
   has_one :wanted_item, dependent: :destroy

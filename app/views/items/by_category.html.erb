@@ -1,4 +1,25 @@
 <h1><%= @category %>一覧</h1>
+<%= form_with url: items_by_category_path, method: :get do |form| %>
+<%= form.hidden_field :category, :value => @category %>
+  <div>
+    <%= form.label :name, "商品名" %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div>
+    <%= form.label :character, "キャラクター名" %>
+    <%= form.text_field :character %>
+  </div>
+  <div>
+    <%= form.label :label, "ラベル" %>
+    <%= form.select :label, current_user.labels.collect { |label| [label.name, label.id] }, include_blank: true %>
+  </div>
+
+  <div>
+    <%= form.submit "検索" %>
+  </div>
+<% end %>
+
 
 <table>
   <thead>
