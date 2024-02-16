@@ -2,15 +2,22 @@ class WantedItemsController < ApplicationController
   before_action :authenticate_user!, except: [:index]
   before_action :set_wanted_item, only: %i[ show edit update destroy ]
 
-  # GET /wanted_items or /wanted_items.json
   def index
     if user_signed_in?
-      @items = Item.joins(:wanted_item).where(wanted_items: {user_id: current_user.id}).page(params[:page]).per(10)
+      # @items = Item.joins(:wanted_item, :labels)
+      # .where(wanted_items: {user_id: current_user.id}).distinct
+      @items = Item.includes(:wanted_item, :labels)
+      .where(wanted_items: {user_id: current_user.id}).distinct
+
+      @items = @items.where("name LIKE ?", "%#{params[:name]}%") if params[:name].present?
+      @items = @items.where("character LIKE ?", "%#{params[:character]}%") if params[:character].present?
+      @items = @items.where("labels.name LIKE ?", "%#{params[:label]}%") if params[:label].present?
+
+      @items = @items.page(params[:page]).per(10)
     else
       redirect_to new_user_session_path
     end
   end
-
 
 
   private

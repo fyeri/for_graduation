@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   get 'items/by_category', to: 'items#by_category', as: 'items_by_category'
   resources :items
 
+  get 'search', to: 'searches#search', as: :search
+
   if Rails.env.development?
     mount LetterOpenerWeb::Engine, at: "/letter_opener"
   end
