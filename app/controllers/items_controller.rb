@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
     before_action :authenticate_user!, except: [:index]
-    before_action :set_item, only: %i[ show edit update destroy ]
+    before_action :set_item, only: %i[ show edit update destroy]
   
     def show
       
@@ -49,11 +49,16 @@ class ItemsController < ApplicationController
       quantity = params[:item][:quantity]
       remark = params[:item][:remark]
       
-      if @item.update(item_params.except(:item_type, :quantity, :remark))
-        update_or_build_item(item_type, quantity, remark)
-    
-          respond_to do |format|
-          if @item.save
+      ActiveRecord::Base.transaction do
+        if @item.update(item_params.except(:item_type, :quantity, :remark))
+          update_or_build_item(item_type, quantity, remark)
+        else
+          raise ActiveRecord::Rollback
+        end
+      end
+
+        respond_to do |format|
+          if @item.errors.empty?
             format.html { redirect_to @item, notice: 'Item was successfully updated.' }
             format.json { render :show, status: :ok, location: @item }
           else
@@ -61,13 +66,7 @@ class ItemsController < ApplicationController
             format.json { render json: @item.errors, status: :unprocessable_entity }
           end
         end
-      else
-        respond_to do |format|
-          format.html { render :edit, status: :unprocessable_entity }
-          format.json { render json: @item.errors, status: :unprocessable_entity }
-        end
       end
-    end
   
     # DELETE /items/1 or /items/1.json
     def destroy
@@ -82,8 +81,14 @@ class ItemsController < ApplicationController
     
     def by_category
       @category = params[:category]
+      @items = current_user.items.includes(:owned_item, :wanted_item).where(category: @category)
 
-      @items = Item.includes(:owned_item, :wanted_item).where(category: @category).map do |item|
+      @items = @items.where("items.name LIKE ?", "%#{params[:name]}%") if params[:name].present?
+      @items = @items.where("items.character LIKE ?", "%#{params[:character]}%") if params[:character].present?
+      @items = @items.joins(:labels).where("labels.name LIKE ?", "%#{params[:label]}%") if params[:label].present?
+      @items = @items.page(params[:page]).per(10)
+
+      @items = @items.map do |item|
         {
           item: item,
           status: item.owned_item.present? ? '持っているグッズ' : '欲しいグッズ'
@@ -108,11 +113,11 @@ class ItemsController < ApplicationController
   
     def update_or_build_item(item_type, quantity, remark)
       if item_type == 'owned'
-        @item.owned_item ? @item.owned_item.update(quantity: quantity, remark: remark)
-         : @item.build_owned_item(quantity: quantity, remark: remark)
+        owned_item = @item.owned_item || @item.build_owned_item
+        owned_item.assign_attributes(quantity: quantity, remark: remark)
       elsif item_type == 'wanted'
-        @item.wanted_item ? @item.wanted_item.update(quantity: quantity, remark: remark)
-         : @item.build_wanted_item(quantity: quantity, remark: remark)
-    end
-  end
+        wanted_item = @item.wanted_item || @item.build_wanted_item
+        wanted_item.assign_attributes(quantity: quantity, remark: remark)
+      end
+   end
 end
