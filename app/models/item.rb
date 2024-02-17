@@ -15,7 +15,6 @@ class Item < ApplicationRecord
   validates :name, presence: {message: :blank},  length: { maximum: 255 }
   validates :character, presence: {message: :blank}, length: { maximum: 255 }
   validates :category, presence: {message: :blank}
-  validates :purchased_on, presence: {message: :blank}
 
   enum category: { 缶バッチ: 0, キーホルダー: 1, アクリルスタンド: 2, ポストカード: 3, その他: 4 }
 end

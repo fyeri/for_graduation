@@ -1,7 +1,12 @@
 <%= form_with(model: item, id: 'itemForm') do |form| %>
   <% if item.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(item.errors.count, "error") %> prohibited this item from being saved:</h2>
+
+      <h2>
+        <%= I18n.t('errors.template.header', 
+                   count: item.errors.count,
+                   model: item.class.model_name.human) %>
+      </h2>
 
       <ul>
         <% item.errors.each do |error| %>
