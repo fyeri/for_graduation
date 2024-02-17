@@ -1,9 +1,10 @@
-<h1>アカウント</h1>
+<h1><%= t('.account') %></h1>
 
-<h3>ユーザ名</h3>
-<%= @user.name %>
-<h3>メールアドレス</h3>
-<%= @user.email %>
+<strong><%= t('.user_name') %></strong>
+  <%= @user.name %>
+  <br>
+<strong><%= t('.email') %></strong>
+  <%= @user.email %>
 
 <br>
-<%= link_to "編集", edit_user_registration_path %>
+<%= link_to t('edit'), edit_user_registration_path %>

@@ -1,6 +1,7 @@
 class LabelsController < ApplicationController
   before_action :authenticate_user!, except: [:index]
   before_action :set_label, only: %i[ show edit update destroy ]
+  before_action :authorize_user, only: [:show, :edit, :update, :destroy]
 
   # GET /labels or /labels.json
   def index
@@ -26,7 +27,7 @@ class LabelsController < ApplicationController
 
     respond_to do |format|
       if @label.save
-        format.html { redirect_to labels_path, notice: "Label was successfully created." }
+        format.html { redirect_to labels_path, notice: I18n.t('labels.create.success') }
         format.json { render :show, status: :created, location: @label }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -39,7 +40,7 @@ class LabelsController < ApplicationController
   def update
     respond_to do |format|
       if @label.update(label_params)
-        format.html { redirect_to label_url(@label), notice: "Label was successfully updated." }
+        format.html { redirect_to label_url(@label), notice: I18n.t('labels.edit.success') }
         format.json { render :show, status: :ok, location: @label }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -53,7 +54,7 @@ class LabelsController < ApplicationController
     @label.destroy
 
     respond_to do |format|
-      format.html { redirect_to labels_url, notice: "Label was successfully destroyed." }
+      format.html { redirect_to labels_url, notice: I18n.t('labels.destroy.success') }
       format.json { head :no_content }
     end
   end
@@ -61,8 +62,14 @@ class LabelsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_label
-      # @label = current_user.items.find(params[:id])
-      @label =  current_user.labels.find(params[:id])
+      @label = Label.find(params[:id])
+    end
+
+    def authorize_user
+      unless current_user == @label.user
+        flash[:alert] = I18n.t('authorize_user.error')
+          redirect_to labels_path
+      end
     end
 
     # Only allow a list of trusted parameters through.

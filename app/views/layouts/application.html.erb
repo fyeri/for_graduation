@@ -15,31 +15,48 @@
 
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
+
+    <% if user_signed_in? && current_user.admin == true %>
+<!-- 管理者にのみ表示したい内容例 -->
+    <%= link_to '/admin' do %>
+    <button type="button" class="btn btn-outline-danger admin-btn"><%= t('.admin_page') %></button>
+  <% end %>
+<% end %>
+
+<header>
   <% if user_signed_in? %>
   <ul>
     <li id="user-show", class="fa-solid fa-user">
-    <%= link_to "アカウント",users_profile_path %></li>
+    <%= link_to t('.account'),users_profile_path %></li>
     <li id="sign-out", class="fa-solid fa-arrow-right-from-bracket">
-    <%= link_to "ログアウト", destroy_user_session_path, method: :delete  %></li>
-
-    <li id="owned-items-index", class="fa-solid fa-box">
-    <%= link_to "持っているグッズ",owned_items_path %></li>
-    <li id="wanted-items-index", class="fa-solid fa-star">
-    <%= link_to "欲しいグッズ", wanted_items_path %></li>
-    <li id="new-item", class="fa-solid fa-circle-plus">
-    <%=link_to "新規グッズ登録", new_item_path %>
-    <li id="label-index", class="fa-solid fa-tags">
-    <%= link_to "ラベル", labels_path %></li>
+    <%= link_to t('.sign_out'), destroy_user_session_path, method: :delete  %></li>
+  </ul>
   <% else %>
+  <ul>
     <li id="sign-in", class="fa-solid fa-arrow-right-to-bracket">
-    <%= link_to "ログイン", new_user_session_path %></li>
+    <%= link_to t('.sign_in'), new_user_session_path %></li>
     <li id="new-session", class="fa-solid fa-user-plus">
-    <%= link_to "新規登録", new_user_registration_path %></li>
+    <%= link_to t('.new_account'), new_user_registration_path %></li>
   </ul>
   <% end %>
+</header>
 
- 
+
 
     <%= yield %>
+    <footer>
+  <% if user_signed_in? %>
+  <ul>
+     <li id="owned-items-index", class="fa-solid fa-box">
+    <%= link_to t('.owned_item'),owned_items_path %></li>
+    <li id="wanted-items-index", class="fa-solid fa-star">
+    <%= link_to t('.wanted_item'), wanted_items_path %></li>
+    <li id="new-item", class="fa-solid fa-circle-plus">
+    <%=link_to t('.new_item'), new_item_path %>
+    <li id="label-index", class="fa-solid fa-tags">
+    <%= link_to t('.label'), labels_path %></li>
+</ul>
+<% end %>
+</footer>
   </body>
 </html>

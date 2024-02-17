@@ -1,6 +1,6 @@
-<h1>ラベル編集</h1>
+<h1><%= t('.label_edit') %></h1>
 
 <%= render 'form', label: @label %>
 
-<%= link_to 'Show', @label %> 
-<%= link_to 'Destroy',@label, method: :delete, data: { confirm: 'Are you sure?' } %>
+<%= link_to t('show'), @label %> 
+<%= link_to t('destroy'),@label, method: :delete, data: { confirm: t('are_you_sure?') } %>

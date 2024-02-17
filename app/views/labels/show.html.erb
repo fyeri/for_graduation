@@ -1,9 +1,9 @@
-<h1>ラベル詳細</h1>
+<h1><%= t ('.label_show') %></h1>
 <p>
   <strong>
-    <%= t('activerecord.attributes.label.index.name') %>:
+    <%= t('activerecord.attributes.item.label_ids') %>:
   </strong>
   <%= @label.name %>
 </p>
 
-<%= link_to 'Edit', edit_label_path(@label) %>
+<%= link_to t('edit'), edit_label_path(@label) %>

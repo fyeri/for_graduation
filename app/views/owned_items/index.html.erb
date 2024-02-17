@@ -1,22 +1,22 @@
-<h1>持っているグッズ</h1>
+<h1><%= t('.ownted_item') %></h1>
 
 <%= form_with url: owned_items_path, method: :get do |form| %>
   <div>
-    <%= form.label :name, "商品名" %>
+    <%= form.label :name, Item.human_attribute_name(:name) %>
     <%= form.text_field :name %>
   </div>
 
   <div>
-    <%= form.label :character, "キャラクター名" %>
+    <%= form.label :character, Item.human_attribute_name(:character) %>
     <%= form.text_field :character %>
   </div>
   <div>
-    <%= form.label :label, "ラベル" %>
+    <%= form.label :label, Item.human_attribute_name(:label_ids) %>
     <%= form.select :label, current_user.labels.collect { |label| [label.name, label.id] }, include_blank: true %>
   </div>
 
   <div>
-    <%= form.submit "検索" %>
+    <%= form.submit t('search') %>
   </div>
 <% end %>
 
@@ -50,7 +50,7 @@
            <%= label.name %>
           <% end %>
         </td>
-        <td><%= link_to 'Show', item %></td>
+        <td><%= link_to t('show'), item %></td>
       </tr>
     <% end %>
   </tbody>
@@ -58,7 +58,7 @@
 
 <%= paginate @items %>
 
-<h2>カテゴリー別</h2>
+<h2><%= t('.category') %></h2>
 <% Item.categories.each do |key, value| %>
   <%= link_to key, items_by_category_path(category: key) %><br>
 <% end %>
