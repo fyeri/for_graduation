@@ -1,7 +1,8 @@
 class ItemsController < ApplicationController
     before_action :authenticate_user!, except: [:index]
     before_action :set_item, only: %i[ show edit update destroy]
-  
+    before_action :authorize_user, only: [:show, :edit, :update, :destroy]
+
     def show
       
     end
@@ -34,7 +35,7 @@ class ItemsController < ApplicationController
   
       respond_to do |format|
         if @item.save
-          format.html { redirect_to item_url(@item), notice: "Item was successfully created." }
+          format.html { redirect_to item_url(@item), notice: I18n.t('items.create.success') }
           format.json { render :show, status: :created, location: @item }
         else
           format.html { render :new, status: :unprocessable_entity }
@@ -59,7 +60,7 @@ class ItemsController < ApplicationController
 
         respond_to do |format|
           if @item.errors.empty?
-            format.html { redirect_to @item, notice: 'Item was successfully updated.' }
+            format.html { redirect_to @item, notice: I18n.t('items.edit.success') }
             format.json { render :show, status: :ok, location: @item }
           else
             format.html { render :edit, status: :unprocessable_entity }
@@ -74,7 +75,7 @@ class ItemsController < ApplicationController
       @item.destroy
   
       respond_to do |format|
-        format.html { redirect_to owned_items_path, notice: "Item was successfully destroyed." }
+        format.html { redirect_to owned_items_path, notice:  I18n.t('items.destroy.success')  }
         format.json { head :no_content }
       end
     end
@@ -98,8 +99,19 @@ class ItemsController < ApplicationController
 
   private
       # Use callbacks to share common setup or constraints between actions.
+    # def set_item
+    #   @item = current_user.items.find(params[:id])
+    # end
+
     def set_item
-      @item = current_user.items.find(params[:id])
+      @item = Item.find(params[:id])
+    end
+    
+    def authorize_user
+      unless current_user == @item.user
+        flash[:alert] = 'アクセス権限がありません'
+          redirect_to owned_items_path
+      end
     end
   
   

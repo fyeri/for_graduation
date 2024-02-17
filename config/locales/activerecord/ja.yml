@@ -1,26 +1,68 @@
 ja:
   activerecord:
     models:
-      user: 'ユーザー'
-      board: '掲示板'
+      user: ユーザー
+      board: 掲示板
     attributes:
       item:
-        image: '画像'
-        name: '商品名'
-        character: 'キャラクター名'
-        category: 'カテゴリー'
-        purchased_on: '購入日/発売日'
-        label_ids: "ラベル名"
-        item_type: '持っているグッズ/欲しいグッズ'
-        owned_item: '持っているグッズ'
-        wanted_item: '欲しいグッズ'
-        quantity: '数量'
-        remark: '備考'
+        image: 画像
+        name: 商品名
+        character: キャラクター名
+        category: カテゴリー
+        purchased_on: 購入日/発売日
+        label_ids: ラベル名
+        item_type: 持っているグッズ/欲しいグッズ
+        owned_item: 持っているグッズ
+        wanted_item: 欲しいグッズ
+        quantity: 数量
+        remark: 備考
+        user: ユーザー
+        created_at: 登録日
+        updated_at: 更新日
+        labels: 登録ラベル
+        item_labels: グッズラベル
+      user:
+        name: ユーザー名
+        email: メールアドレス
+        password: パスワード
+        created_at: 作成日
+        updated_at: 更新日
+        admin: 管理者権限
+        owned_items: 登録している持っているグッズ
+        wanted_items: 登録している欲しいグッズ
+        items: 登録アイテム
+        labels: 登録ラベル
+        reset_password_sent_at: パスワードリセット送信時刻
+        remember_created_at: ログイン記憶時刻
       label:
-        index: 
-         name: 'ラベル名'
-         new_label: 新規ラベル作成
-  
+         name: ラベル名
+         user: ユーザー名
+         created_at: 作成日
+         updated_at: 更新日
+         items: グッズ
+         item_labels: グッズラベル
+
+      owned_item:
+        quantity: 数量
+        remark: 備考
+        item: グッズ
+        user: ユーザー名
+        created_at: 作成日
+        updated_at: 更新日
+      wanted_item:
+        quantity: 数量
+        remark: 備考
+        item: グッズ
+        user: ユーザー名
+        created_at: 作成日
+        updated_at: 更新日
+      item_label:
+        item: グッズ
+        label: ラベル
+        reason: 理由
+        created_at: 作成日
+        updated_at: 更新日
+
 
 
 

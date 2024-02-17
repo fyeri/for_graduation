@@ -1,0 +1,22 @@
+ja:
+  authorize_user:
+    error: "アクセス権限がありません"
+  labels:
+    create:
+      success: "ラベルを作成しました"
+    edit:
+      success: "ラベルを更新しました"
+    destroy:
+      success: "ラベルを削除しました"
+  items:
+    create:
+      success: "新規グッズを登録しました"
+    edit:
+      success: "グッズを更新しました"
+    destroy:
+      success: "グッズを削除しました"
+  errors:
+    template:
+      header:
+        one: "1つのエラーが発生し、この%{model}を保存できませんでした："
+        other: "%{count}つのエラーが発生し、この%{model}を保存できませんでした"
