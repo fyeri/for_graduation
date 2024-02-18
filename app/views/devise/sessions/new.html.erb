@@ -25,4 +25,6 @@
 
 <%= render "devise/shared/links" %>
 
-<%= link_to t('.admin_sign_in'), rails_admin_path %>
+  <%= link_to t('.guest_sign_in'), users_guest_sign_in_path, method: :post %>
+  <br>
+  <%= link_to t('.guest_admin_sign_in'),guest_admin_sign_in_path, method: :post %>

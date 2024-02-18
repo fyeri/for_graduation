@@ -2,7 +2,7 @@
 <html>
   <head>
     <title>GoodsApp</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -37,6 +37,7 @@
     <%= link_to t('.sign_in'), new_user_session_path %></li>
     <li id="new-session", class="fa-solid fa-user-plus">
     <%= link_to t('.new_account'), new_user_registration_path %></li>
+
   </ul>
   <% end %>
 </header>

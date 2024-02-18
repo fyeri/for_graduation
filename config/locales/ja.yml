@@ -15,6 +15,12 @@ ja:
       success: "グッズを更新しました"
     destroy:
       success: "グッズを削除しました"
+  users:
+    sessions:
+      guest_sign_in:
+        success: "ゲストユーザとしてログインしました"
+      guest_admin_sign_in:
+        success: "管理者ゲストユーザとしてログインしました"
   errors:
     template:
       header:

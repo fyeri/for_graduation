@@ -115,7 +115,8 @@ ja:
       already_signed_out: 既にログアウト済みです。
       new:
         sign_in: ログイン
-        admin_sign_in: 管理者ログイン
+        guest_sign_in: ゲストログイン
+        guest_admin_sign_in: ゲストログイン（管理者）
       signed_in: ログインしました。
       signed_out: ログアウトしました。
     shared:

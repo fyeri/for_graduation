@@ -4,12 +4,9 @@ class OwnedItemsController < ApplicationController
 
   def index
     if user_signed_in?
-      # @items = Item.joins(:owned_item, :labels)
-      # .where(owned_items: {user_id: current_user.id}).distinct
 
       @items = Item.includes(:owned_item, :labels)
       .where(owned_items: {user_id: current_user.id}).distinct
-      # @items = @items.includes(:labels).where("labels.name LIKE ?", "%#{params[:label]}%") if params[:label].present?
 
       @items = @items.where("items.name LIKE ?", "%#{params[:name]}%") if params[:name].present?
       @items = @items.where("items.character LIKE ?", "%#{params[:character]}%") if params[:character].present?
@@ -20,6 +17,7 @@ class OwnedItemsController < ApplicationController
       redirect_to new_user_session_path
    end
   end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.
