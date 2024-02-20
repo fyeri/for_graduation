@@ -18,27 +18,27 @@
 
   <div class="field">
     <%= form.label :image %>
-    <%= form.file_field  :image, id: :item_image  %>
+    <%= form.file_field  :image, id: :item_image %>
   </div>
 
   <div class="field">
     <%= form.label :name %>
-    <%= form.text_field :name %>
+    <%= form.text_field :name, class: "form-control"  %>
   </div>
 
   <div class="field">
     <%= form.label :character %>
-    <%= form.text_field :character %>
+    <%= form.text_field :character, class: "form-control"  %>
   </div>
 
   <div class="field">
     <%= form.label :category %>
-    <%= form.select :category, Item.categories.keys.to_a, {include_blank: true} %>
+    <%= form.select :category, Item.categories.keys.to_a, {include_blank: true}, {class: "form-control"}  %>
   </div>
 
   <div class="field">
     <%= form.label :purchased_on %>
-    <%= form.date_field :purchased_on %>
+    <%= form.date_field :purchased_on, class: "form-control"  %>
   </div>
 
 
@@ -66,17 +66,17 @@
 
   <div class="field">
     <%= form.label :quantity %>
-    <%= form.number_field :quantity, value: 1 %>
+    <%= form.number_field :quantity, value: 1, class: "form-control" %>
   </div>
 
   <div class="field">
     <%= form.label :remark %>
-    <%= form.text_area :remark %>
+    <%= form.text_area :remark, class: "form-control" %>
   </div>
 
 
-  <div class="actions">
-    <%= form.submit %>
+  <div class="actions text-center">
+    <%= form.submit class: "btn btn-primary"%>
   </div>
 <% end %>
 
@@ -94,4 +94,3 @@
     }
   }
 </script>
-

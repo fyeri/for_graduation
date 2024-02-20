@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
     <title>GoodsApp</title>
 
     <%= csrf_meta_tags %>
@@ -8,56 +13,78 @@
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-<script src="https://kit.fontawesome.com/851afd15a5.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/851afd15a5.js" crossorigin="anonymous"></script>
   </head>
 
   <body>
-
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
 
+    <header class="page-header">
+      <nav>
+        <ul class="main-nav">
+          <% if user_signed_in? %>
+            <li id="user-show", class="fa-solid fa-user">
+              <%= link_to t('.account'),users_profile_path %></li>
+            <li id="sign-out", class="fa-solid fa-arrow-right-from-bracket">
+              <%= link_to t('.sign_out'), destroy_user_session_path, method: :delete  %></li>
+          <% else %>
+            <li id="sign-in", class="fa-solid fa-arrow-right-to-bracket">
+              <%= link_to t('.sign_in'), new_user_session_path %></li>
+            <li id="new-session", class="fa-solid fa-user-plus">
+              <%= link_to t('.new_account'), new_user_registration_path %></li>
+          <% end %>
+        </ul>
+      </nav> 
+    </header>
+
     <% if user_signed_in? && current_user.admin == true %>
 <!-- 管理者にのみ表示したい内容例 -->
-    <%= link_to '/admin' do %>
-    <button type="button" class="btn btn-outline-danger admin-btn"><%= t('.admin_page') %></button>
-  <% end %>
-<% end %>
+      <div class="text-right">
+        <%= link_to '/admin' do %>
+          <button type="button" class="btn btn-outline-danger admin-btn"><%= t('.admin_page') %></button>
+        <% end %>
+      </div>
+    <% end %>
+   
 
-<header>
-  <% if user_signed_in? %>
-  <ul>
-    <li id="user-show", class="fa-solid fa-user">
-    <%= link_to t('.account'),users_profile_path %></li>
-    <li id="sign-out", class="fa-solid fa-arrow-right-from-bracket">
-    <%= link_to t('.sign_out'), destroy_user_session_path, method: :delete  %></li>
-  </ul>
-  <% else %>
-  <ul>
-    <li id="sign-in", class="fa-solid fa-arrow-right-to-bracket">
-    <%= link_to t('.sign_in'), new_user_session_path %></li>
-    <li id="new-session", class="fa-solid fa-user-plus">
-    <%= link_to t('.new_account'), new_user_registration_path %></li>
-
-  </ul>
-  <% end %>
-</header>
-
-
-
-    <%= yield %>
-    <footer>
-  <% if user_signed_in? %>
-  <ul>
-     <li id="owned-items-index", class="fa-solid fa-box">
-    <%= link_to t('.owned_item'),owned_items_path %></li>
-    <li id="wanted-items-index", class="fa-solid fa-star">
-    <%= link_to t('.wanted_item'), wanted_items_path %></li>
-    <li id="new-item", class="fa-solid fa-circle-plus">
-    <%=link_to t('.new_item'), new_item_path %>
-    <li id="label-index", class="fa-solid fa-tags">
-    <%= link_to t('.label'), labels_path %></li>
-</ul>
-<% end %>
-</footer>
+    <div class='container'>
+      <%= yield %>
+    </div> 
+    <footer class="footer bg-light fixed-bottom">
+      <div class="container">
+        <% if user_signed_in? %>
+          <ul class="nav nav-justified">
+            <li id="owned-items-index" class="nav-item">
+              <%= link_to owned_items_path, class: "nav-link text-center" do %>
+                <i class="fa-solid fa-box fa-lg"></i><br>
+                <small><%= t('.owned_item') %></small>
+              <% end %>
+            </li>
+            <li id="wanted-items-index" class="nav-item">
+              <%= link_to wanted_items_path, class: "nav-link text-center" do %>
+                <i class="fa-solid fa-star fa-lg"></i><br>
+                <small><%= t('.wanted_item') %></small>
+              <% end %>
+            </li>
+            <li id="new-item" class="nav-item">
+              <%= link_to new_item_path, class: "nav-link text-center" do %>
+                <i class="fa-solid fa-circle-plus fa-lg"></i><br>
+                <small><%= t('.new_item') %></small>
+              <% end %>
+            </li>
+            <li id="label-index" class="nav-item">
+              <%= link_to labels_path, class: "nav-link text-center" do %>
+                <i class="fa-solid fa-tags fa-lg"></i><br>
+                <small><%= t('.label') %></small>
+              <% end %>
+            </li>
+        </ul>
+      <% end %>
+    </div>
+  </footer>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   </body>
 </html>

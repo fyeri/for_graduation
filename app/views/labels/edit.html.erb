@@ -1,6 +1,10 @@
-<h1><%= t('.label_edit') %></h1>
+<div class="row justify-content-center">
+  <div class="col-md-6 text-center-container">
+    <h1><%= t('.label_edit') %></h1>
 
-<%= render 'form', label: @label %>
+    <%= render 'form', label: @label %>
 
-<%= link_to t('show'), @label %> 
-<%= link_to t('destroy'),@label, method: :delete, data: { confirm: t('are_you_sure?') } %>
+    <%= link_to t('show'), @label, class: "btn btn-link"  %> 
+    <%= link_to t('destroy'),@label, method: :delete, class: "btn btn-link", data: { confirm: t('are_you_sure?'), class: "btn btn-link" } %>
+  </div>
+</div>

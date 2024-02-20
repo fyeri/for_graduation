@@ -4,16 +4,13 @@ class WantedItemsController < ApplicationController
 
   def index
     if user_signed_in?
-      # @items = Item.joins(:wanted_item, :labels)
-      # .where(wanted_items: {user_id: current_user.id}).distinct
-      @items = Item.includes(:wanted_item, :labels)
-      .where(wanted_items: {user_id: current_user.id}).distinct
 
-      @items = @items.where("name LIKE ?", "%#{params[:name]}%") if params[:name].present?
-      @items = @items.where("character LIKE ?", "%#{params[:character]}%") if params[:character].present?
-      @items = @items.where("labels.name LIKE ?", "%#{params[:label]}%") if params[:label].present?
-
-      @items = @items.page(params[:page]).per(10)
+      @items = WantedItem.for_user(current_user.id)
+              .with_item_name(params[:name])
+              .with_item_character(params[:character])
+              .with_label_name(params[:label])
+              .includes(:item)
+              .page(params[:page]).per(10)
     else
       redirect_to new_user_session_path
     end

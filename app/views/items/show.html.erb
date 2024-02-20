@@ -1,71 +1,74 @@
-<h1><%= t('.show_items') %></h1>
+<div class="row justify-content-center">
+  <div class="col-md-6 text-center-container">
+    <h1><%= t('.show_items') %></h1>
 
-<p>
-  <strong><%= Item.human_attribute_name(:image) %>:</strong>
-</p>
-<p>
-  <% if @item.image.present? %>
-    <%= image_tag @item.image.url %>
-  <% else %>
-    <%= image_tag "default.png", size: "200x200" %>
-  <% end %>
-</p>
+    <p>
+      <strong><%= Item.human_attribute_name(:image) %></strong>
+    </p>
+    <p>
+      <% if @item.image.present? %>
+        <%= image_tag @item.image.url %>
+      <% else %>
+        <%= image_tag "default.png", size: "200x200" %>
+      <% end %>
+    </p>
 
-<p>
-  <strong><%= Item.human_attribute_name(:name) %>:</strong>
-  <%= @item.name %>
-</p>
+    <p>
+      <strong><%= Item.human_attribute_name(:name) %>:</strong>
+      <%= @item.name %>
+    </p>
 
-<p>
-  <strong><%= Item.human_attribute_name(:character) %>:</strong>
-  <%= @item.character %>
-</p>
+    <p>
+      <strong><%= Item.human_attribute_name(:character) %>:</strong>
+      <%= @item.character %>
+    </p>
 
-<p>
-  <strong><%= Item.human_attribute_name(:category) %>:</strong>
-  <%= @item.category %>
-</p>
+    <p>
+      <strong><%= Item.human_attribute_name(:category) %>:</strong>
+      <%= @item.category %>
+    </p>
 
-<p>
-  <strong><%= Item.human_attribute_name(:purchased_on) %>:</strong>
-  <%= @item.purchased_on %>
-</p>
+    <p>
+      <strong><%= Item.human_attribute_name(:purchased_on) %>:</strong>
+      <%= @item.purchased_on %>
+    </p>
 
-<p>
-  <strong><%= Item.human_attribute_name(:label_ids)%>:</strong>
-          <% @item.labels.each do |label| %>
-           <%= label.name %>
-          <% end %>
+    <p>
+      <strong><%= Item.human_attribute_name(:label_ids)%>:</strong>
+      <% @item.labels.each do |label| %>
+        <%= label.name %>
+      <% end %>
+    </p>
 
-<% if @item.owned_item %>
+    <% if @item.owned_item %>
+      <p>
+        <strong><%= t('activerecord.attributes.item.item_type') %>:</strong>
+        <%= Item.human_attribute_name(:owned_item) %>
+      </p>
+      <p>
+        <strong><%= Item.human_attribute_name(:quantity) %>:</strong>
+        <%= @item.owned_item.quantity %>
+      </p>
+      <p>
+        <strong><%= Item.human_attribute_name(:remark) %>:</strong>
+        <%= @item.owned_item.remark%>
+      </p>
+    <% elsif @item.wanted_item %>
+      <p>
+        <strong><%= t('activerecord.attributes.item.item_type') %>:</strong>
+        <%= Item.human_attribute_name(:wanted_item) %>
+      </p>
+      <p>
+        <strong><%= Item.human_attribute_name(:quantity) %>:</strong>
+        <%= @item.wanted_item.quantity%>
+      </p>
+      <p>
+        <strong><%= Item.human_attribute_name(:remark) %>:</strong>
+        <%= @item.wanted_item.remark%>
+      </p>
+    <% end %>
 
-  <p>
-    <strong><%= t('activerecord.attributes.item.item_type') %>:</strong>
-    <%= Item.human_attribute_name(:owned_item) %>
-  </p>
-  <p>
-    <strong><%= Item.human_attribute_name(:quantity) %>:</strong>
-    <%= @item.owned_item.quantity %>
-  </p>
-  <p>
-    <strong><%= Item.human_attribute_name(:remark) %>:</strong>
-    <%= @item.owned_item.remark%>
-  </p>
-
-<% elsif @item.wanted_item %>
-  <p>
-   <strong><%= t('activerecord.attributes.item.item_type') %>:</strong>
-   <%= Item.human_attribute_name(:wanted_item) %>
-  </p>
-  <p>
-    <strong><%= Item.human_attribute_name(:quantity) %>:</strong>
-    <%= @item.wanted_item.quantity%>
-  </p>
-  <p>
-    <strong><%= Item.human_attribute_name(:remark) %>:</strong>
-    <%= @item.wanted_item.remark%>
-  </p>
-<% end %>
-
-<%= link_to t('edit'), edit_item_path(@item) %> 
+    <%= link_to t('edit'), edit_item_path(@item), class: "btn btn-link" %>
+  </div>
+</div> 
 

@@ -1,9 +1,13 @@
-<h1><%= t ('.label_show') %></h1>
-<p>
-  <strong>
-    <%= t('activerecord.attributes.item.label_ids') %>:
-  </strong>
-  <%= @label.name %>
-</p>
+<div class="row justify-content-center">
+  <div class="col-md-6 text-center-container">
+    <h1><%= t ('.label_show') %></h1>
+    <p>
+      <strong>
+        <%= t('activerecord.attributes.item.label_ids') %>:
+      </strong>
+      <%= @label.name %>
+    </p>
 
-<%= link_to t('edit'), edit_label_path(@label) %>
+    <%= link_to t('edit'), edit_label_path(@label), class: "btn btn-link" %>
+  </div>
+</div>

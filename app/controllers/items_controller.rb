@@ -82,13 +82,13 @@ class ItemsController < ApplicationController
     
     def by_category
       @category = params[:category]
-      @items = current_user.items.includes(:owned_item, :wanted_item).where(category: @category)
 
-      @items = @items.where("items.name LIKE ?", "%#{params[:name]}%") if params[:name].present?
-      @items = @items.where("items.character LIKE ?", "%#{params[:character]}%") if params[:character].present?
-      @items = @items.joins(:labels).where("labels.name LIKE ?", "%#{params[:label]}%") if params[:label].present?
-      @items = @items.page(params[:page]).per(10)
-
+      @items = current_user.items.by_category(@category)
+                                 .with_name(params[:name])
+                                 .with_character(params[:character])
+                                 .with_label_name(params[:label])
+                                 .includes(:owned_item, :wanted_item)
+                                 .page(params[:page]).per(10)
       @items = @items.map do |item|
         {
           item: item,
