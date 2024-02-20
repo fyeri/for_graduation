@@ -1,0 +1,14 @@
+.body-login {
+  background: url('/assets/log-in-image.jpg') no-repeat center center fixed;
+  background-size: cover; /* 背景画像をカバーとして設定 */
+}
+
+.body {
+  font-size: 16px; /* 通常のフォントサイズ */
+}
+
+@media (max-width: 576px) {
+  .body {
+    font-size: 14px; /* スマホではフォントサイズを小さくする */
+  }
+}

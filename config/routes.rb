@@ -1,6 +1,14 @@
 Rails.application.routes.draw do
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   devise_for :users, controllers: { registrations: 'users/registrations' }
+
+  devise_scope :user do
+    post 'users/guest_sign_in', to: 'users/sessions#guest_sign_in'
+  end
+  devise_scope :user do
+    post 'guest_admin_sign_in', to: 'users/sessions#guest_admin_sign_in'
+  end 
+
   get "users/profile" => "users#show"
   resources :labels
   resources :owned_items
@@ -8,6 +16,7 @@ Rails.application.routes.draw do
   resources :wanted_items
   get 'items/by_category', to: 'items#by_category', as: 'items_by_category'
   resources :items
+
 
   get 'search', to: 'searches#search', as: :search
 

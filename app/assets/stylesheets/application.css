@@ -13,3 +13,40 @@
  *= require_tree .
  *= require_self
  */
+
+ .main-nav {
+  display: flex;
+  font-size: 16px;
+  text-transform: uppercase;
+  margin-top: 34px;
+  list-style: none;
+  justify-content: flex-end;
+ }
+ .main-nav li {
+  margin-right: 10px;
+ }
+ .page-header {
+  padding: 10px 0; /* 上下のパディングを小さくする */
+}
+
+
+ body {
+  padding-bottom: 100px; /* フッターの高さより少し大きめの値を設定 */
+}
+
+/* スマートフォン向けのスタイル */
+@media (max-width: 576px) {
+  footer {
+    padding: 10px 0; /* モバイルではフッターのパディングを調整 */
+  }
+  .form-group label {
+    font-size: 14px;
+  }
+  .form-control {
+    font-size: 14px;
+  }
+  h1, h2 {
+    font-size: 18px;
+  }
+}
+
