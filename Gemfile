@@ -78,4 +78,3 @@ gem 'rails_admin', '~> 3.0'
 gem 'cancancan'
 gem 'dotenv-rails'
 gem 'fog-aws'
-gem 'aws-sdk-s3', require: false
