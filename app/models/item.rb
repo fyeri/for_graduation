@@ -17,4 +17,12 @@ class Item < ApplicationRecord
   validates :category, presence: {message: :blank}
 
   enum category: { 缶バッチ: 0, キーホルダー: 1, アクリルスタンド: 2, ポストカード: 3, その他: 4 }
+
+  scope :by_category, ->(category) { where(category: category) if category.present? }
+  scope :with_name, ->(name) { where("items.name LIKE ?", "%#{name}%") if name.present? }
+  scope :with_character, ->(character) { where("items.character LIKE ?", "%#{character}%") if character.present? }
+  scope :with_label_name, ->(label_name) {
+    joins(:labels).where('labels.name LIKE ?', "%#{label_name}%").distinct if label_name.present?
+  }
 end
+

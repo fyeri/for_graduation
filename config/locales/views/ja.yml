@@ -13,12 +13,12 @@ ja:
       new_account: 新規登録
       owned_item: 持っているグッズ
       wanted_item: 欲しいグッズ
-      new_item: 新規グッズ登録
+      new_item: グッズ登録
       label: ラベル
   items:
     new:
       name: ユーザー登録
-      new_items: 新規グッズ登録
+      new_items: グッズ登録
     edit:
       edit_items: グッズ編集
     by_category:

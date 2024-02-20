@@ -11,7 +11,7 @@ ja:
         category: カテゴリー
         purchased_on: 購入日/発売日
         label_ids: ラベル名
-        item_type: 持っているグッズ/欲しいグッズ
+        item_type: 状態
         owned_item: 持っているグッズ
         wanted_item: 欲しいグッズ
         quantity: 数量
