@@ -75,8 +75,18 @@
   </div>
 
 
+
+
+  <% if controller.action_name ==  "new"|| controller.action_name == "create"  then %>
+    <% id = "create-item" %>
+    <% label_key = t('activerecord.attributes.item.create_item') %>
+  <% else %>
+    <% id = "update-item" %>
+    <% label_key = t('activerecord.attributes.item.update_item') %>
+  <% end %>
+
   <div class="actions text-center">
-    <%= form.submit class: "btn btn-primary"%>
+    <%= form.submit label_key, id: id, class: "btn btn-primary" %>
   </div>
 <% end %>
 

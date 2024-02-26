@@ -10,6 +10,7 @@ class WantedItemsController < ApplicationController
               .with_item_character(params[:character])
               .with_label_name(params[:label])
               .includes(:item)
+              .order(created_at: :desc)
               .page(params[:page]).per(10)
     else
       redirect_to new_user_session_path

@@ -251,7 +251,7 @@ GEM
     puma (5.6.8)
       nio4r (~> 2.0)
     racc (1.7.3)
-    rack (2.2.8)
+    rack (2.2.8.1)
     rack-mini-profiler (2.3.4)
       rack (>= 1.2.0)
     rack-proxy (0.7.7)
@@ -335,7 +335,7 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
-    selenium-webdriver (4.17.0)
+    selenium-webdriver (4.18.1)
       base64 (~> 0.2)
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
@@ -379,10 +379,6 @@ GEM
       activemodel (>= 6.0.0)
       bindex (>= 0.4.0)
       railties (>= 6.0.0)
-    webdrivers (5.2.0)
-      nokogiri (~> 1.6)
-      rubyzip (>= 1.3.0)
-      selenium-webdriver (~> 4.0)
     webpacker (5.4.4)
       activesupport (>= 5.2)
       rack-proxy (>= 0.6.1)
@@ -409,7 +405,7 @@ DEPENDENCIES
   capistrano-rails (~> 1.6)
   capistrano-safe-deploy-to
   capistrano3-unicorn
-  capybara (>= 3.26)
+  capybara
   carrierwave
   devise
   devise-i18n
@@ -431,14 +427,13 @@ DEPENDENCIES
   rexml
   rspec-rails (~> 6.1.0)
   sass-rails (>= 6)
-  selenium-webdriver (>= 4.0.0.rc1)
+  selenium-webdriver
   shoulda-matchers (~> 5.0)
   spring
   turbolinks (~> 5)
   tzinfo-data
   unicorn
   web-console (>= 4.1.0)
-  webdrivers
   webpacker (~> 5.0)
 
 RUBY VERSION

@@ -26,7 +26,7 @@ class ItemsController < ApplicationController
     def create
       @item = current_user.items.build(item_params)
       @item.item_type = params[:item][:item_type]
-      
+       
       item_type = params[:item][:item_type]
       quantity = params[:item][:quantity]
       remark = params[:item][:remark]
@@ -92,11 +92,12 @@ class ItemsController < ApplicationController
                                  .with_character(params[:character])
                                  .with_label_name(params[:label])
                                  .includes(:owned_item, :wanted_item)
+                                 .order(created_at: :desc)
                                  .page(params[:page]).per(10)
       @items = @items.map do |item|
         {
           item: item,
-          status: item.owned_item.present? ? '持っているグッズ' : '欲しいグッズ'
+          status: item.owned_item.present? ? '持っている' : '欲しい'
         }
       end
     end

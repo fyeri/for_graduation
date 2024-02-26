@@ -8,26 +8,26 @@
       <div class="col-md-4">
         <div class="form-group">
           <%= form.label :name, Item.human_attribute_name(:name) %>
-          <%= form.text_field :name, class: "form-control" %>
+          <%= form.text_field :name, class: "form-control", id: "item_name" %>
         </div>
       </div>
       <div class="col-md-4">
         <div class="form-group">
           <%= form.label :character, Item.human_attribute_name(:character) %>
-          <%= form.text_field :character, class: "form-control" %>
+          <%= form.text_field :character, class: "form-control", id: "item_character" %>
         </div>
       </div>
       <div class="col-md-4">
         <div class="form-group">
           <%= form.label :label, Item.human_attribute_name(:label_ids) %>
-          <%= form.select :label, current_user.labels.collect { |label| [label.name, label.id] }, {include_blank: true}, {class: "form-control"} %>
+          <%= form.select :label, current_user.labels.collect { |label| [label.name, label.id] }, {include_blank: true}, {class: "form-control", id: "item_label_ids" } %>
         </div>
       </div>
     </div>
 
     <div class="row justify-content-end">
       <div class="col-md-6 text-right">
-        <%= form.submit t('search'), class: "btn btn-primary"  %>
+        <%= form.submit t('search'), class: "btn btn-primary", id: "search-btn" %>
       </div>
     </div>
   <% end %>
@@ -52,9 +52,9 @@
             <%= image_tag("default.png", size: "200x200", class: "img-fluid" ) %>
           <% end %>
         </td>
-        <td><%= hash[:item].name %></td>
-        <td><%= hash[:status] %></td>
-        <td><%= link_to t('show'),item_path(hash[:item]) %></td>
+        <td class="text"><%= hash[:item].name.truncate(10) %></td>
+        <td class="text"><%= hash[:status].truncate(10) %></td>
+        <td class="text"><%= link_to t('show'),item_path(hash[:item]), class: "show-item" %></td>
       </tr>
     <% end %>
   </tbody>

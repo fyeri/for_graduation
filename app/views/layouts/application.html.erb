@@ -26,14 +26,14 @@
     <ul class="main-nav">
       <% if user_signed_in? %>
         <ul class="nav nav-justified">
-          <li id="user-show" class="nav-item">
-            <%= link_to users_profile_path, class: "nav-link text-center" do %>
+          <li class="nav-item">
+            <%= link_to users_profile_path, id: "user-show", class: "nav-link text-center" do %>
               <i class="fa-solid fa-user"></i><br>
               <small><%= t('.account') %></small>
             <% end %>
           </li>
-          <li id="sign-out" class="nav-item">
-            <%= link_to destroy_user_session_path, method: :delete, class: "nav-link text-center" do %>
+          <li class="nav-item">
+            <%= link_to destroy_user_session_path, method: :delete, id: "sign-out", class: "nav-link text-center" do %>
               <i class="fa-solid fa-arrow-right-from-bracket"></i><br>
               <small><%= t('.sign_out') %></small>
             <% end %>
@@ -41,15 +41,15 @@
         </ul>
       <% else %>
         <ul class="nav nav-justified">
-          <li id="sign-in" class="nav-item">
-            <%= link_to new_user_session_path, class: "nav-link text-center" do %>
+          <li class="nav-item">
+            <%= link_to new_user_session_path, id: "sign-in", class: "nav-link text-center" do %>
               <i class="fa-solid fa-arrow-right-to-bracket"></i><br>
               <small><%= t('.sign_in') %></small>
             <% end %>
           </li>
           <ul class="nav nav-justified">
-            <li id="new-session" class="nav-item">
-              <%= link_to new_user_registration_path, class: "nav-link text-center" do %>
+            <li class="nav-item">
+              <%= link_to new_user_registration_path, id: "new-session", class: "nav-link text-center" do %>
                 <i class="fa-solid fa-user-plus"></i><br>
                 <small><%= t('.new_account') %></small>
               <% end %>
@@ -62,9 +62,9 @@
 </header>
 
 
-      <p class="notice"><%= notice %></p>
-      <p class="alert"><%= alert %></p>
-
+      
+<p class="alert"><%= alert %></p>
+<p class="notice"><%= notice %></p>
 
     <% if user_signed_in? && current_user.admin == true %>
 <!-- 管理者にのみ表示したい内容例 -->
@@ -83,26 +83,26 @@
       <div class="container">
         <% if user_signed_in? %>
           <ul class="nav nav-justified">
-            <li id="owned-items-index" class="nav-item">
-              <%= link_to owned_items_path, class: "nav-link text-center" do %>
+            <li class="nav-item">
+              <%= link_to owned_items_path, id: "owned-items-index", class: "nav-link text-center" do %>
                 <i class="fa-solid fa-box fa-lg"></i><br>
                 <small><%= t('.owned_item') %></small>
               <% end %>
             </li>
-            <li id="wanted-items-index" class="nav-item">
-              <%= link_to wanted_items_path, class: "nav-link text-center" do %>
+            <li class="nav-item">
+              <%= link_to wanted_items_path, id: "wanted-items-index", class: "nav-link text-center" do %>
                 <i class="fa-solid fa-star fa-lg"></i><br>
                 <small><%= t('.wanted_item') %></small>
               <% end %>
             </li>
-            <li id="new-item" class="nav-item">
-              <%= link_to new_item_path, class: "nav-link text-center" do %>
+            <li class="nav-item">
+              <%= link_to new_item_path, id: "new-item", class: "nav-link text-center" do %>
                 <i class="fa-solid fa-circle-plus fa-lg"></i><br>
                 <small><%= t('.new_item') %></small>
               <% end %>
             </li>
-            <li id="label-index" class="nav-item">
-              <%= link_to labels_path, class: "nav-link text-center" do %>
+            <li class="nav-item">
+              <%= link_to labels_path, id: "label-index", class: "nav-link text-center" do %>
                 <i class="fa-solid fa-tags fa-lg"></i><br>
                 <small><%= t('.label') %></small>
               <% end %>

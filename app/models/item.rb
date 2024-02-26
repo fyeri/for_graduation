@@ -21,8 +21,12 @@ class Item < ApplicationRecord
   scope :by_category, ->(category) { where(category: category) if category.present? }
   scope :with_name, ->(name) { where("items.name LIKE ?", "%#{name}%") if name.present? }
   scope :with_character, ->(character) { where("items.character LIKE ?", "%#{character}%") if character.present? }
-  scope :with_label_name, ->(label_name) {
-    joins(:labels).where('labels.name LIKE ?', "%#{label_name}%").distinct if label_name.present?
+  # scope :with_label_name, ->(label_name) {
+  #   joins(:labels).where('labels.name LIKE ?', "%#{label_name}%").distinct if label_name.present?
+  # }
+  scope :with_label_name, ->(label_id) {
+    joins(:labels).where('labels.id = ?', label_id).distinct if label_id.present?
   }
+
 end
 
