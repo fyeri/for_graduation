@@ -35,8 +35,12 @@
   display: flex; 
   align-items: center; /* 中の要素を上下中央に並べる */
   justify-content: flex-end;
+  z-index: 100;
 }
 
+.alert {
+  margin-top: 70px; /* ヘッダーの高さに応じて調整 */
+}
 
  body {
   padding-bottom: 100px; /* フッターの高さより少し大きめの値を設定 */
@@ -56,10 +60,24 @@
     font-size: 14px;
   }
   .form-control {
-    font-size: 14px;
+    font-size: 8px;
   }
   h1, h2 {
-    font-size: 18px;
+    font-size: 30px;
   }
+
+
+
+.img-fluid {   
+    width: 50px;
+    height: 50px;
 }
+
+.text {
+  line-height: 50px;
+  white-space: nowrap;
+}
+
+}
+
 

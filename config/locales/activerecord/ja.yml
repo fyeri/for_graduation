@@ -16,11 +16,15 @@ ja:
         wanted_item: 欲しいグッズ
         quantity: 数量
         remark: 備考
+        create_item: 登録
+        update_item: 更新
         user: ユーザー
         created_at: 登録日
         updated_at: 更新日
         labels: 登録ラベル
         item_labels: グッズラベル
+        create_label: ラベル登録
+        update_label: ラベル更新
       user:
         name: ユーザー名
         email: メールアドレス

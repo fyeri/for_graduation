@@ -50,18 +50,18 @@ RSpec.describe WantedItem, type: :model do
     end
     context 'scopeメソッドでラベルを検索した場合' do
       it 'ラベルに完全一致した商品が絞り込まれる' do
-        expect(WantedItem.with_label_name('Label1')).to include(wanted_item1)
-        expect(WantedItem.with_label_name('Label1')).not_to include(wanted_item2)
-        expect(WantedItem.with_label_name('Label1')).not_to include(wanted_item3)
-        expect(WantedItem.with_label_name('Label1').count).to eq 1
+        expect(WantedItem.with_label_name(label1.id)).to include(wanted_item1)
+        expect(WantedItem.with_label_name(label1.id)).not_to include(wanted_item2)
+        expect(WantedItem.with_label_name(label1.id)).not_to include(wanted_item3)
+        expect(WantedItem.with_label_name(label1.id).count).to eq 1
       end
     end
     context 'scopeメソッドで商品名、キャラクター名の曖昧検索とラベル検索をした場合' do
       it '検索ワードを含んだ商品名、キャラクター名、かつラベルに完全一致する商品が絞り込まれる' do
-        expect(WantedItem.with_item_name('first').with_item_character('A').with_label_name('Label1')).to include(wanted_item1)
-        expect(WantedItem.with_item_name('first').with_item_character('A').with_label_name('Label1')).not_to include(wanted_item2)
-        expect(WantedItem.with_item_name('first').with_item_character('A').with_label_name('Label1')).not_to include(wanted_item3)
-        expect(WantedItem.with_item_name('first').with_item_character('A').with_label_name('Label1').count).to eq 1
+        expect(WantedItem.with_item_name('first').with_item_character('A').with_label_name(label1.id)).to include(wanted_item1)
+        expect(WantedItem.with_item_name('first').with_item_character('A').with_label_name(label1.id)).not_to include(wanted_item2)
+        expect(WantedItem.with_item_name('first').with_item_character('A').with_label_name(label1.id)).not_to include(wanted_item3)
+        expect(WantedItem.with_item_name('first').with_item_character('A').with_label_name(label1.id).count).to eq 1
       end
     end
   end

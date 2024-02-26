@@ -5,10 +5,10 @@
     <%= render 'form', item: @item %>
 
     <div class="actions text-center">
-      <%= link_to t('show'), @item %>
+      <%= link_to t('show'), @item, class: "show-item" %>
       <td>
       <br>
-        <%= link_to t('destroy'), @item, method: :delete, data: { confirm: t('are_you_sure?') } %>
+        <%= link_to t('destroy'), @item, method: :delete, class: "destroy-item", data: { confirm: t('are_you_sure?') } %>
       </td>
     </div>
   </div>

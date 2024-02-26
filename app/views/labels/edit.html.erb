@@ -4,7 +4,7 @@
 
     <%= render 'form', label: @label %>
 
-    <%= link_to t('show'), @label, class: "btn btn-link"  %> 
-    <%= link_to t('destroy'),@label, method: :delete, class: "btn btn-link", data: { confirm: t('are_you_sure?'), class: "btn btn-link" } %>
+    <%= link_to t('show'), @label, class: "btn btn-link show-label"  %> 
+    <%= link_to t('destroy'),@label, method: :delete, class: "btn btn-link  destroy-label", data: { confirm: t('are_you_sure?'), class: "btn btn-link" } %>
   </div>
 </div>

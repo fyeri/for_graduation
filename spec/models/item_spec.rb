@@ -54,18 +54,18 @@ RSpec.describe Item, type: :model do
     end
     context 'scopeメソッドでラベルを検索した場合' do
       it 'ラベルに完全一致した商品が絞り込まれる' do
-        expect(Item.with_label_name('Label1')).to include(first_item)
-        expect(Item.with_label_name('Label1')).not_to include(second_item)
-        expect(Item.with_label_name('Label1')).not_to include(third_item)
-        expect(Item.with_label_name('Label1').count).to eq 1
+        expect(Item.with_label_name(label1.id)).to include(first_item)
+        expect(Item.with_label_name(label1.id)).not_to include(second_item)
+        expect(Item.with_label_name(label1.id)).not_to include(third_item)
+        expect(Item.with_label_name(label1.id).count).to eq 1
       end
     end
     context 'scopeメソッドで商品名、キャラクター名の曖昧検索とラベル検索をした場合' do
       it '検索ワードを含んだ商品名、キャラクター名、かつラベルに完全一致する商品が絞り込まれる' do
-        expect(Item.with_name('first').with_character('A').with_label_name('Label1')).to include(first_item)
-        expect(Item.with_name('first').with_character('A').with_label_name('Label1')).not_to include(second_item)
-        expect(Item.with_name('first').with_character('A').with_label_name('Label1')).not_to include(third_item)
-        expect(Item.with_name('first').with_character('A').with_label_name('Label1').count).to eq 1
+        expect(Item.with_name('first').with_character('A').with_label_name(label1.id)).to include(first_item)
+        expect(Item.with_name('first').with_character('A').with_label_name(label1.id)).not_to include(second_item)
+        expect(Item.with_name('first').with_character('A').with_label_name(label1.id)).not_to include(third_item)
+        expect(Item.with_name('first').with_character('A').with_label_name(label1.id).count).to eq 1
 
       end
     end
