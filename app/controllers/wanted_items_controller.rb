@@ -19,12 +19,10 @@ class WantedItemsController < ApplicationController
 
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_wanted_item
       @wanted_item = current_user.items.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
     def wanted_item_params
       params.require(:wanted_item).permit(:quantity, :remark).merge(user_id: current_user.id)
     end

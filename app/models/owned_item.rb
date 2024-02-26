@@ -16,14 +16,6 @@ class OwnedItem < ApplicationRecord
     joins(:item).where('items.character LIKE ?', "%#{character}%") if character.present?
   }
 
-  # scope :with_label_name, ->(label_name) {
-  #   joins(item: :labels).where('labels.name LIKE ?', "%#{label_name}%").distinct if label_name.present?
-  # }
-
-  # scope :with_label_name, ->(label_name) {
-  #   joins(item: :labels).find(label_name.to_i).distinct if label_name.present?
-  # }
-
     scope :with_label_name, ->(label_id) {
     joins(item: :labels).where('labels.id = ?', label_id).distinct if label_id.present?
   }

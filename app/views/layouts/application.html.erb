@@ -22,6 +22,7 @@
     
 
 <header class="page-header wrapper">
+  <%= image_tag 'logo.png', alt: 'Logo', size: '100x100', class: 'logo' %>
   <nav>
     <ul class="main-nav">
       <% if user_signed_in? %>
@@ -67,7 +68,7 @@
 <p class="notice"><%= notice %></p>
 
     <% if user_signed_in? && current_user.admin == true %>
-<!-- 管理者にのみ表示したい内容例 -->
+
       <div class="text-right">
         <%= link_to '/admin' do %>
           <button type="button" class="btn btn-outline-danger admin-btn"><%= t('.admin_page') %></button>

@@ -2,11 +2,7 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
 
-.background-image {
-  background: url('/assets/image.png') no-repeat center center fixed;
-  background-size: cover; /* 背景画像をカバーとして設定 */
-}
 
 .text {
-  line-height: 200px; /* コンテナの高さに合わせて調整 */
+  line-height: 200px;
 }
