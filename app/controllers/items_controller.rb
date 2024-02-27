@@ -46,7 +46,6 @@ class ItemsController < ApplicationController
       end
     end
   
-    # PATCH/PUT /items/1 or /items/1.json
     def update
       item_type = params[:item][:item_type]
       quantity = params[:item][:quantity]

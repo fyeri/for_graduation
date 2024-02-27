@@ -3,13 +3,13 @@ lock "~> 3.18.0"
 
 set :application, "goods_app"
 set :repo_url, "https://github.com/fyeri/for_graduation.git"
-set :linked_files, %w{config/secrets.yml .env}   # 4
-set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets public/uploads}   # 5
-set :keep_releases, 5   # 6
-set :rbenv_ruby, '3.0.1'    # 7
-set :log_level, :info   # 8
+set :linked_files, %w{config/secrets.yml .env}
+set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets public/uploads}
+set :keep_releases, 5
+set :rbenv_ruby, '3.0.1'
+set :log_level, :info
 
-after 'deploy:finished', 'deploy:restart'   # 10
+after 'deploy:finished', 'deploy:restart'
 
 namespace :deploy do
   desc 'Run seed'

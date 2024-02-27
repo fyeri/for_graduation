@@ -40,7 +40,7 @@
 
 
 .logo {
-  flex-basis: 100px; /* ロゴ画像のサイズに基づいて調整 */
+  flex-basis: 100px;
 }
 
 .nav-container {

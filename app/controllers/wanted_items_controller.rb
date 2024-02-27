@@ -1,6 +1,5 @@
 class WantedItemsController < ApplicationController
   before_action :authenticate_user!, except: [:index]
-  before_action :set_wanted_item, only: %i[ show edit update destroy ]
 
   def index
     if user_signed_in?

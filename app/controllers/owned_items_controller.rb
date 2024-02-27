@@ -1,6 +1,5 @@
 class OwnedItemsController < ApplicationController
   before_action :authenticate_user!, except: [:index]
-  before_action :set_owned_item, only: %i[ show edit update destroy ]
 
   def index
     if user_signed_in?
