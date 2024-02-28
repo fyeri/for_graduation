@@ -1,9 +1,7 @@
 class OwnedItem < ApplicationRecord
-  belongs_to :user
   belongs_to :item, dependent: :destroy
+  belongs_to :user
  
-  mount_uploader :image, ImageUploader
-
   validates :quantity, presence: true, numericality: { greater_than: 0 }
 
   scope :for_user, ->(user_id) { where(user_id: user_id) }
@@ -19,4 +17,8 @@ class OwnedItem < ApplicationRecord
     scope :with_label_name, ->(label_id) {
     joins(item: :labels).where('labels.id = ?', label_id).distinct if label_id.present?
   }
+
+  def exchange
+    item.wanted_item.delete
+  end
 end

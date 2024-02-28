@@ -1,7 +1,6 @@
 <%= form_with(model: item, id: 'itemForm') do |form| %>
   <% if item.errors.any? %>
     <div id="error_explanation">
-
       <h2>
         <%= I18n.t('errors.template.header', 
                    count: item.errors.count,
@@ -18,17 +17,28 @@
 
   <div class="field">
     <%= form.label :image %>
-    <%= form.file_field  :image, id: :item_image %>
+    <% if controller.action_name == "new" || controller.action_name == "create" %>
+      <%= form.file_field :image, id: "item_image" %>
+    <% else %>
+      <% if @item.image.present? %>
+        <%= image_tag(@item.image.url) %>
+      <% end %>
+      <label class="form-image">
+        <span class="image-file">ファイルの選択または変更</span>
+        <%= form.file_field :image, id:"item-image", class:"hidden" %>
+      </label>
+      <%= form.hidden_field :image_cache %>
+    <% end %>
   </div>
 
   <div class="field">
     <%= form.label :name %>
-    <%= form.text_field :name, class: "form-control"  %>
+    <%= form.text_field :name, class: "form-control" %>
   </div>
 
   <div class="field">
     <%= form.label :character %>
-    <%= form.text_field :character, class: "form-control"  %>
+    <%= form.text_field :character, class: "form-control" %>
   </div>
 
   <div class="field">
@@ -41,41 +51,47 @@
     <%= form.date_field :purchased_on, class: "form-control"  %>
   </div>
 
-
-  <div class=“field”>
+    <div class=“field”>
       <%= form.label :label_ids %>
-
       <% current_user.labels.each do |label| %>
-      <div class=“form-check”>
-        <%= form.check_box :label_ids, { multiple: true, include_hidden: false }, label[:id] %>
-        <%= label.name %>
-      </div>
+        <div class=“form-check”>
+          <%= form.check_box :label_ids, { multiple: true, include_hidden: false }, label[:id] %>
+          <%= label.name %>
+        </div>
       <% end %>
     </div>
 
-  <div form id="field">
-
-    <%= form.label :item_type_owned,  t('activerecord.attributes.item.owned_item') %>
-    <%= form.radio_button :item_type, 'owned', checked: true, onchange: "updateFormAction();"%>
-   
-    <%= form.label :item_type_wanted,  t('activerecord.attributes.item.wanted_item')  %>
-    <%= form.radio_button :item_type, 'wanted', onchange: "updateFormAction();" %>
+    <div form id="field">
+      <% if controller.action_name ==  "new" || controller.action_name == "create"  then %>
+        <%= form.label :item_type_owned,  t('activerecord.attributes.item.owned_item') %>
+        <%= form.radio_button :item_type, 'owned', checked: true, onchange: "updateFormAction();"%>
     
-  </div>
+        <%= form.label :item_type_wanted,  t('activerecord.attributes.item.wanted_item')  %>
+        <%= form.radio_button :item_type, 'wanted', onchange: "updateFormAction();" %>
+      <% elsif @item.owned_item %>
+        <%= form.label :item_type_owned,  t('activerecord.attributes.item.owned_item') %>
+        <%= form.radio_button :item_type, 'owned', checked: true, onchange: "updateFormAction();"%>
+        <%= form.label :item_type_wanted,  t('activerecord.attributes.item.wanted_item')  %>
+        <%= form.radio_button :item_type, 'wanted', onchange: "updateFormAction();" %> 
+      <% else %>
+        <%= form.label :item_type_owned,  t('activerecord.attributes.item.owned_item') %>
+        <%= form.radio_button :item_type, 'owned', onchange: "updateFormAction();"%>
+        <%= form.label :item_type_wanted,  t('activerecord.attributes.item.wanted_item')  %>
+        <%= form.radio_button :item_type, 'wanted', checked: true, onchange: "updateFormAction();" %> 
+      <% end %>
+    </div>
+
 
 
   <div class="field">
     <%= form.label :quantity %>
-    <%= form.number_field :quantity, value: 1, class: "form-control" %>
+    <%= form.number_field :quantity, value: quantity, class: "form-control" %>
   </div>
 
   <div class="field">
     <%= form.label :remark %>
-    <%= form.text_area :remark, class: "form-control" %>
+    <%= form.text_area :remark, value: remark, class: "form-control" %>
   </div>
-
-
-
 
   <% if controller.action_name ==  "new"|| controller.action_name == "create"  then %>
     <% id = "create-item" %>

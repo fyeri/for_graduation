@@ -52,7 +52,7 @@ RSpec.describe "OwnedItems", type: :system do
       fill_in "item_name", with: "a"
       click_button "search-btn"
       sleep 0.1
-      expect(page).to have_content, 'aa'
+      expect(page).to have_content 'aa'
       expect(page).not_to have_content 'bb'
       expect(page).not_to have_content 'cc'
     end

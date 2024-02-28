@@ -2,7 +2,7 @@
   <div class="col-md-6 text-center-container">
     <h1><%= t '.edit_items' %></h1>
 
-    <%= render 'form', item: @item %>
+    <%= render 'form', item: @item, quantity: @item_object.quantity, remark: @item_object.remark %>
 
     <div class="actions text-center">
       <%= link_to t('show'), @item, class: "show-item" %>
