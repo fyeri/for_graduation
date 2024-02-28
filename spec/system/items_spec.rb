@@ -46,6 +46,18 @@ RSpec.describe "Items", type: :system do
       expect(page).to have_content 'グッズを更新しました'
     end
 
+    it 'アイテムを持っているグッズから欲しいグッズに更新した場合、欲しいグッズとして表示される' do
+      first('.show-item').click
+      sleep 0.1
+      find(".edit-item").click
+      sleep 0.1
+      choose "item_item_type_wanted"
+      fill_in "item_quantity", with: "2"
+      click_button "update-item"
+      sleep 0.1
+      expect(page).to have_content '欲しいグッズ'
+    end
+
     it 'アイテムを更新した場合、アイテムが削除される' do
       first('.show-item').click
       sleep 0.1
@@ -86,6 +98,7 @@ RSpec.describe "Items", type: :system do
     
     it 'キャラクター名で曖昧検索した場合、検索ワードを含むグッズが表示される' do
       fill_in "item_character", with: "a"
+      sleep 0.1
       click_button "search-btn"
       sleep 0.1
       expect(page).to have_content 'aa'
@@ -94,6 +107,7 @@ RSpec.describe "Items", type: :system do
       
     it 'ラベルで検索した場合、そのラベルのついたグッズが表示される' do
       select "label_1", from: "item_label_ids"
+      sleep 0.1
       click_button "search-btn"
       sleep 0.1
       expect(page).to have_content 'aa'

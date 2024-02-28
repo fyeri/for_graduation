@@ -19,6 +19,13 @@ class ItemsController < ApplicationController
     end
   
     def edit
+      if @item.owned_item
+        @item_object = @item.owned_item
+      else
+        @item_object = @item.wanted_item
+      end
+
+      @item.image.cache! unless @item.image.blank?
     end
   
     def create
@@ -52,23 +59,23 @@ class ItemsController < ApplicationController
       remark = params[:item][:remark]
       
       ActiveRecord::Base.transaction do
-        if @item.update(item_params.except(:item_type, :quantity, :remark))
+        if @item.update(item_params.except(:item_type, :quantity, :remark))        
           update_or_build_item(item_type, quantity, remark)
         else
           raise ActiveRecord::Rollback
         end
       end
 
-        respond_to do |format|
-          if @item.errors.empty?
-            format.html { redirect_to @item, notice: I18n.t('items.edit.success') }
-            format.json { render :show, status: :ok, location: @item }
-          else
-            format.html { render :edit, status: :unprocessable_entity }
-            format.json { render json: @item.errors, status: :unprocessable_entity }
-          end
+      respond_to do |format|
+        if @item.errors.empty?
+          format.html { redirect_to @item, notice: I18n.t('items.edit.success') }
+          format.json { render :show, status: :ok, location: @item }
+        else
+          format.html { render :edit, status: :unprocessable_entity }
+          format.json { render json: @item.errors, status: :unprocessable_entity }
         end
       end
+    end
   
     def destroy
       @item.item_labels.destroy_all
@@ -114,18 +121,26 @@ class ItemsController < ApplicationController
   
   
     def item_params
-      params.require(:item).permit(:name, :character, :category, :purchased_on, :image, :item_type,{ label_ids: [] },
-      owned_items_attributes: [:quantity, :remark, :_destroy],
-      wanted_items_attributes: [:quantity, :remark, :_destroy])
+      params.require(:item).permit(:name, :character, :category, :purchased_on, :image, :image_cache, :item_type,{ label_ids: [] },
+      owned_items_attributes: [:id, :quantity, :remark, :_destroy],
+      wanted_items_attributes: [:id, :quantity, :remark, :_destroy])
     end
-  
+
     def update_or_build_item(item_type, quantity, remark)
       if item_type == 'owned'
-        owned_item = @item.owned_item || @item.build_owned_item
-        owned_item.assign_attributes(quantity: quantity, remark: remark)
+        owned_or_wanted = @item.owned_item || @item.build_owned_item(user: current_user)   
       elsif item_type == 'wanted'
-        wanted_item = @item.wanted_item || @item.build_wanted_item
-        wanted_item.assign_attributes(quantity: quantity, remark: remark)
+        owned_or_wanted = @item.wanted_item || @item.build_wanted_item(user: current_user)
       end
-   end
+      
+      owned_or_wanted.assign_attributes(quantity: quantity, remark: remark)
+        
+    if owned_or_wanted.new_record? 
+      owned_or_wanted.save
+      owned_or_wanted.exchange
+    else
+      owned_or_wanted.save
+    end
+  end
 end
+

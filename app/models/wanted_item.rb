@@ -1,7 +1,6 @@
 class WantedItem < ApplicationRecord
   belongs_to :item, dependent: :destroy
   belongs_to :user
-  mount_uploader :image, ImageUploader
 
   validates :quantity, presence: true, numericality: { greater_than: 0 }
 
@@ -19,4 +18,7 @@ class WantedItem < ApplicationRecord
     joins(item: :labels).where('labels.id = ?', label_id).distinct if label_id.present?
   }
 
+  def exchange
+    item.owned_item.delete
+  end
 end
