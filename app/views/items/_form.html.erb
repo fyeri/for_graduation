@@ -108,10 +108,10 @@
 
 <script>
   function updateFormAction() {
-    var form = document.getElementById('itemForm');
-    var itemType = document.querySelector('input[name="item_type"]:checked').value;
-    if (itemType == 'owned') {
+    let form = document.getElementById('itemForm');
+    let itemType = document.querySelector('input[name="item_type"]:checked').value;
 
+    if (itemType == 'owned') {
       document.getElementById('quantity_field').style.display = 'block';
       document.getElementById('remark_field').style.display = 'block';
     } else if (itemType == 'wanted') {
